@@ -1,3 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+class CustomUser(AbstractUser):
+    website = models.URLField(max_length=200, blank=True)
+    bio = models.TextField()
+    display_name = models.CharField(max_length=40)
+    profile_pic = models.ImageField(upload_to='profile_img', null=True, blank=True)
+    follows = models.ManyToManyField('self', related_name='user_follows', symmetrical=False, blank=True, default='self')
+
+    def __str__(self):
+        return self.display_name
+    
