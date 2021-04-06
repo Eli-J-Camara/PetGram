@@ -28,6 +28,7 @@ urlpatterns = [
     path('logout/', auth.LogoutView.as_view(), name='logout'),
     path('', post.homepage, name='homepage'),
     path('submit_post/', post.post_view, name='post_view'),
+    path('post_detail/<int:post_id>/', post.post_detail, name='post_detail'),
 ]
 
 if settings.DEBUG:
