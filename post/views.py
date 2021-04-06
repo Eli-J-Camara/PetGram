@@ -2,20 +2,16 @@ from django.shortcuts import render
 from post.models import Post
 from post.forms import PostForm
 
+from django.core.files.storage import FileSystemStorage
+
 def homepage(request):
     return render(request, 'homepage.html')
 
 def post_view(request):
-    context = {}
     if request.method == 'POST':
-        form = PostForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            data = form.cleaned_data
-            new_post = Post.objects.create(
-                post_pic = data['post_pic'],
-                caption = data['caption']
-            )
-            return redirect('post_detail')
-    form = PostForm()
-    context.update({'form': form})
-    return render(request, 'generic_form.html', context)
+        uploaded_file = request.FILES['document']
+        # print(uploaded_file.name)
+        # print(uploaded_file.size)
+        fs = FileSystemStorage()
+        fs.save(uploaded_file.name, uploaded_file)
+    return render(request, 'upload_form.html')
