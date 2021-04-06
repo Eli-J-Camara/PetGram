@@ -18,10 +18,18 @@ from django.urls import path
 from authentication import views as auth
 from post import views as post
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', post.homepage, name='homepage'),
     path('signup/', auth.SignUpView.as_view(), name='signup'),
     path('login/', auth.LoginView.as_view(), name='login'),
     path('logout/', auth.LogoutView.as_view(), name='logout'),
+    path('', post.homepage, name='homepage'),
+    path('submit_post/', post.post_view, name='post_view'),
+    path('post_detail/<int:post_id>/', post.post_detail, name='post_detail'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
