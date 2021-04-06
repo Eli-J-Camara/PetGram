@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
 from post.models import Post
 from post.forms import PostForm
-from notification.models import Notification
-from user_profile.models import CustomUser
-import re
 
 from django.core.files.storage import FileSystemStorage
 
@@ -22,11 +19,22 @@ def post_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            # print('form is valid')
+            # form.display_name = request.user
+            # print(request.user)
+            # print(form)
+            # form.save()
+            new_data = Post.objects.create(
+                display_name = request.user,
+                caption = form.cleaned_data['caption'],
+                post_pic = form.cleaned_data['post_pic']
+            )
+            new_data.save()
             return redirect('homepage')
     else:
         form = PostForm()
     return render(request, 'upload_form.html', {'form': form})
+
 
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
