@@ -23,15 +23,19 @@ class SignUpView(View):
             )
             login(request, user)
             return redirect('homepage')
+
 class LoginView(View):
+    template_name = 'generic_form.html'
+
     def get(self, request):
-        template_name = 'generic_form.html'
+        
         form = LoginForm()
-        return render(request, template_name, {'form':form, 'header':'Login'})
+        return render(request, self.template_name, {'form':form, 'header':'Login'})
     
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
+            print('Form is valid')
             data = form.cleaned_data
             user = authenticate(
                 request,
@@ -40,7 +44,10 @@ class LoginView(View):
             )
             if user:
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next', reverse('homepage')))
+                print('You are in!')
+            else:
+                print("Please signup")
+        return HttpResponseRedirect(reverse('homepage'))
 
 class LogoutView(View):
     def get(self, request):
