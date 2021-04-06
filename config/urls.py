@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from authentication import views as auth
 from post import views as post
+from user_profile import views as users
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,6 +30,7 @@ urlpatterns = [
     path('', post.homepage, name='homepage'),
     path('submit_post/', post.post_view, name='post_view'),
     path('post_detail/<int:post_id>/', post.post_detail, name='post_detail'),
+    path('search/', users.search_bar, name='search_bar'),
 ]
 
 if settings.DEBUG:
