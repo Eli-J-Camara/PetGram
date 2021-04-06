@@ -20,8 +20,9 @@ from post import views as post
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', post.homepage, name='homepage'),
     path('signup/', auth.SignUpView.as_view(), name='signup'),
     path('login/', auth.LoginView.as_view(), name='login'),
     path('logout/', auth.LogoutView.as_view(), name='logout'),
+    path('', post.homepage, name='homepage'),
+    path('submit_post/', post.post_view, name='post_view'),
 ]
