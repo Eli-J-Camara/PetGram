@@ -10,7 +10,7 @@
     {% comment %}
     <h1>{{ header }}</h1>
     {% endcomment %}
-
+    {% include 'nav.html' %}
     <form action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %} {{form.as_p}} {% comment %}
       <input type="file" name="document" multiple /> {% endcomment %}

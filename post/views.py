@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from post.models import Post
 from post.forms import PostForm
+from notification.models import Notification
+from user_profile.models import CustomUser
+import re
 
 from django.core.files.storage import FileSystemStorage
 
