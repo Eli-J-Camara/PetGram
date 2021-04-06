@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from post.models import Post
 from post.forms import PostForm
-
+from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 
+@login_required
 def homepage(request):
     return render(request, 'homepage.html')
 
@@ -15,6 +16,8 @@ def homepage(request):
 #         fs = FileSystemStorage()
 #         fs.save(uploaded_file.name, uploaded_file)
 #     return render(request, 'upload_form.html')
+
+@login_required
 def post_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
