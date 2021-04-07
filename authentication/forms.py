@@ -14,6 +14,8 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=40)
     password = forms.CharField(widget=forms.PasswordInput)
 
+
+
 # class LoginForm(forms.ModelForm):
 #     class Meta:
 #         model = CustomUser
