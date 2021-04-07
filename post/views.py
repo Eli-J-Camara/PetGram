@@ -1,23 +1,15 @@
-from django.shortcuts import render, redirect
-from post.models import Post
-from post.forms import PostForm
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
+from post.models import Post, Comment
+from post.forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
+
 from django.core.files.storage import FileSystemStorage
 
 @login_required
 def homepage(request):
     return render(request, 'homepage.html')
 
-# def post_view(request):
-#     if request.method == 'POST':
-#         uploaded_file = request.FILES['document']
-#         # print(uploaded_file.name)
-#         # print(uploaded_file.size)
-#         fs = FileSystemStorage()
-#         fs.save(uploaded_file.name, uploaded_file)
-#     return render(request, 'upload_form.html')
-
-@login_required
+@login_required 
 def post_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -41,4 +33,23 @@ def post_view(request):
 
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    return render(request, 'post_detail.html', {'post': post})
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            print(request.user.id)
+            data=form.cleaned_data
+            comment = Comment.objects.create(
+                comment = data['comment'],
+                user = request.user,
+                post = post
+            )
+            return redirect(f'/post_detail/{post.id}')
+    form = CommentForm()
+    comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
+    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form})
+
+def comment_delete(request, id):
+    comment = Comment.objects.get(id=id)
+    comment.delete()
+    return redirect(f'/post_detail/{comment.post.id}')
+
