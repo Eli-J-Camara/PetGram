@@ -15,5 +15,17 @@
     <span>Like: {{post.likes}}</span>
     <span>Unlike: {{post.dislikes}}</span>
     </div>
+    {% if request.user.id != None %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+    <h2>Comments:</h2>
+    {% for comment in comments %}
+        <h3>{{ comment.user.username }} <span style='font-weight: normal'>{{ comment.comment }}</span></h3>
+        {{ comment.created_at }}
+    {% endfor %}
 </body>
 </html>

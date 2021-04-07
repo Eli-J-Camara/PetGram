@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from post.models import Post
-from post.forms import PostForm
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
+from post.models import Post, Comment
+from post.forms import PostForm, CommentForm
 
 from django.core.files.storage import FileSystemStorage
 
@@ -25,6 +25,41 @@ def post_view(request):
         form = PostForm()
     return render(request, 'upload_form.html', {'form': form})
 
+# def comment_view(request, post_id):
+#     post = Post.objects.get(id=post_id)
+#     if request.method == 'POST':
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             data=form.cleaned_data
+#             comment = Comment.objects.create(
+#                 comment = data['data'],
+#                 user = request.user,
+#                 post = post
+#             )
+#             return HttpResponseRedirect(reverse('post_detail'))
+#     form = CommentForm()
+#     return render(
+#         request,
+#         'post_detail.html',
+#         {'form': form}
+#     )
+
+
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    return render(request, 'post_detail.html', {'post': post})
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            print(request.user.id)
+            data=form.cleaned_data
+            comment = Comment.objects.create(
+                comment = data['comment'],
+                user = request.user,
+                post = post
+            )
+            
+            return redirect(f'/post_detail/{post.id}')
+    form = CommentForm()
+    comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
+    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form})
+
