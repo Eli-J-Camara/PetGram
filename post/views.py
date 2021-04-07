@@ -41,12 +41,9 @@ def unlike_view(request, post_id):
     return HttpResponseRedirect(f'/post_detail/{post.id}')
 
 
-# def delete_post_view(request, post_id):
-#     # context ={}
-#     post = Post.objects.get(id=post_id)
+def delete_post_view(request, post_id):
+    current_post = Post.objects.get(id=post_id)
+    current_post.delete()
+    return HttpResponseRedirect('/')
   
-#     if request.method == "POST":
-#         post.delete()
-#         return HttpResponseRedirect("/")
-  
-#     return render(request, "delete_post.html", post)
+
