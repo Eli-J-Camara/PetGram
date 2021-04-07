@@ -1,0 +1,13 @@
+{% block content %}
+    <div class='row' id='delete'>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="input">
+                <div>
+                <button class='btn' type='submit' >Delete Post</button>
+                <a class='btn' href="{% url 'post-detail' post.id %}">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+{% endblock content %}

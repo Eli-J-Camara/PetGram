@@ -29,6 +29,9 @@ urlpatterns = [
     path('', post.homepage, name='homepage'),
     path('submit_post/', post.post_view, name='post_view'),
     path('post_detail/<int:post_id>/', post.post_detail, name='post_detail'),
+    path('like/<int:post_id>/', post.like_view, name="like"),
+    path('unlike/<int:post_id>/', post.unlike_view, name="unlike"),
+    path('delete/<int:post_id>/', post.delete_post_view, name="delete"),
 ]
 
 if settings.DEBUG:
