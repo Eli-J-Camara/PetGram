@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+{% include 'nav.html' %}
 {% if search %}
     <h1>You Search For {{ search }} </h1>
     <br>
@@ -15,7 +16,7 @@
     {{u}} - {{u.bio}} <br>
     {% endfor %}
 {% else %}
-<h1>Opps no search was entered</h1>
+    <h1>Opps no search was entered</h1>
 {% endif %}
 </body>
 </html>

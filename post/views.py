@@ -1,18 +1,30 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
 from post.models import Post, Comment
 from post.forms import PostForm, CommentForm
+from django.contrib.auth.decorators import login_required
 
 from django.core.files.storage import FileSystemStorage
 
+@login_required
 def homepage(request):
     return render(request, 'homepage.html')
 
-    
+@login_required 
 def post_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            # print('form is valid')
+            # form.display_name = request.user
+            # print(request.user)
+            # print(form)
+            # form.save()
+            new_data = Post.objects.create(
+                display_name = request.user,
+                caption = form.cleaned_data['caption'],
+                post_pic = form.cleaned_data['post_pic']
+            )
+            new_data.save()
             return redirect('homepage')
     else:
         form = PostForm()

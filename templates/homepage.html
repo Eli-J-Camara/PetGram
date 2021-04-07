@@ -8,12 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Homepage</h1>
-    <a href="/logout">logout</a>
-    <form action="{% url 'search_bar' %}" method="POST">
-    {% csrf_token %}
-      <input type="text" placeholder="Search..." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
+    {% include 'nav.html' %}
 </body>
 </html>

@@ -8,3 +8,4 @@ def search_bar(request):
         return render(request, 'search_bar.html', {'search': search, 'users': users})
     else:
          return render(request, 'search_bar.html', {})
+
