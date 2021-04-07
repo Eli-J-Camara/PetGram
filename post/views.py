@@ -57,9 +57,13 @@ def post_detail(request, post_id):
                 user = request.user,
                 post = post
             )
-            
             return redirect(f'/post_detail/{post.id}')
     form = CommentForm()
     comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
     return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form})
+
+def comment_delete(request, id):
+    comment = Comment.objects.get(id=id)
+    comment.delete()
+    return redirect(f'/post_detail/{comment.post.id}')
 
