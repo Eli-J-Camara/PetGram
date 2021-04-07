@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from user_profile.models import CustomUser
 
-# Create your views here.
+def search_bar(request):
+    if request.method == 'POST':
+        search = request.POST['search']
+        users = CustomUser.objects.filter(display_name__contains=search)
+        return render(request, 'search_bar.html', {'search': search, 'users': users})
+    else:
+         return render(request, 'search_bar.html', {})
