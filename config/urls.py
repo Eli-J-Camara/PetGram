@@ -18,6 +18,7 @@ from django.urls import path
 from authentication import views as auth
 from post import views as post
 from user_profile import views as users
+from notification import views as notify
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,6 +32,7 @@ urlpatterns = [
     path('submit_post/', post.post_view, name='post_view'),
     path('post_detail/<int:post_id>/', post.post_detail, name='post_detail'),
     path('search/', users.search_bar, name='search_bar'),
+    path('notifications/', notify.notification_view, name='notification_view'),
 ]
 
 if settings.DEBUG:

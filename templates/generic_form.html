@@ -10,11 +10,16 @@
     {% include 'nav.html' %}
     <h1>{{ header }}</h1>
     <form action="" method="POST">
-      {% csrf_token %} {{form.as_p}} {% if messages %} {% for message in
-      messages %}
-      <div class="alert alert-danger" role="alert">{{ message }}</div>
-      {% endfor %} {% endif %}
-      <input type="submit" value="Submit" />
+      {% csrf_token %} 
+        {{form.as_p}}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+        <input type="submit" value="Submit" />
     </form>
   </body>
 </html>
