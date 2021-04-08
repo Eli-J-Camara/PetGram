@@ -5,4 +5,4 @@ class  ProfileForm(forms.ModelForm):
     
     class Meta:
         model = CustomUser
-        fields = ("website", "bio", "display_name", "profile_pic")
+        fields = ("profile_pic", "display_name", "bio", "website")
