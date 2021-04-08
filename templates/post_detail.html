@@ -17,5 +17,25 @@
     <span>Like: {{post.likes}}</span>
     <span>Unlike: {{post.dislikes}}</span>
     </div>
+    {% if request.user.id != None %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+    <h2>Comments:</h2>
+    {% for comment in comments %}
+        <h3 style="display: inline;">
+            {{ comment.user.username }} 
+            <span style='font-weight: normal'>{{ comment.comment }}</span>
+            {% if request.user == comment.user %}
+                <a href='/comment_delete/{{ comment.id }}/'>
+                    <img style="width: 20px; padding-left: 30px;" src="/media/post_img/Delete.jpeg" alt="Delete Button">
+                </a>
+            {% endif %}
+        </h3>
+        <p>{{ comment.created_at }}</p>
+    {% endfor %}
 </body>
 </html>

@@ -9,5 +9,14 @@
 </head>
 <body>
     {% include 'nav.html' %}
+    {% for post in feed %}
+      <div style='padding-top: 15px'>
+        <img style='width: 400px; height: auto;' src="{{ post.post_pic.url }}" alt="">
+        <h3><a href="/post_detail/{{post.id}}">{{post.caption}}</a></h3>
+        <p>{{post.created_at}}</p>
+        <span>Like: {{post.likes}}</span>
+        <span>Unlike: {{post.dislikes}}</span>
+      </div>
+    {% endfor %}
 </body>
 </html>
