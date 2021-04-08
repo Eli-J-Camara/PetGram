@@ -9,7 +9,9 @@ import re
 
 @login_required
 def homepage(request):
-    return render(request, 'homepage.html')
+    notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    print(notify)
+    return render(request, 'homepage.html', {'notify': notify})
 
 @login_required
 def post_view(request):
