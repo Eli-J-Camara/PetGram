@@ -27,5 +27,5 @@ urlpatterns = [
     path('logout/', auth.LogoutView.as_view(), name='logout'),
     path('profile/<int:user_id>/', profile_view, name='profile'),
     path('follow/<int:user_id>/', follow_view, name='follow'),
-    path('unfollow/<int:user_id/', unfollow_view, name='unfollow')
+    path('unfollow/<int:user_id>/', unfollow_view, name='unfollow')
 ]

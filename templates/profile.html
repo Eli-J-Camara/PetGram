@@ -9,8 +9,11 @@
 <p><a href='/logout'>logout</a></p>
 <a href="/profile/edit/{{user.id}}/"><button>edit</button></a>
 
-{% if request.user in user.follows.all %}
-    <a href="/unfollow/{{user.id}}/"><button>unfollow</button></a>
+{% if user.is_authenticated %}
+
+{% if follows  %}
+    <a href="{% url 'unfollow' user.id %}"><button>unfollow</button></a>
 {% else %}
     <a href="/follow/{{user.id}}/"><button>follow</button></a>
+{% endif %}
 {% endif %}
