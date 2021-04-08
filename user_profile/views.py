@@ -1,7 +1,6 @@
 from post.models import Post
 from user_profile.models import CustomUser
 from .forms import ProfileForm
-# from authentication.forms import SignUpForm
 from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
@@ -41,10 +40,18 @@ def profile_view(request, user_id):
     context = {'user': user,'form': form}
     return render(request, 'profile.html', context)
 
+@login_required
+def follow_view(request, user_id):
+    user = CustomUser.objects.get(id=user_id)
+    request.user.follows.add(user)
+    print('followed')
+    return HttpResponseRedirect(reverse('profile', kwargs={'user_id':user.id}))
 
-
-
-    
+@login_required
+def unfollow_view(request, user_id):
+    user = CustomUser.objects.get(id=user_id)
+    request.user.follows.remove(user)
+    return HttpResponseRedirect(reverse('profile', kwargs={'user_id':user.id}))   
     
       
 
