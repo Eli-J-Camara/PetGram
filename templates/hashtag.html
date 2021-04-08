@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% for t in tag %}
+    {% comment %} {{tag}} {% endcomment %}
+    <ul>
+    <img src="{{t.post_pic.url}}" alt="">
+    {{t.display_name}}
+    {{t.tags}}
+    {{t.caption}}
+    {{t.created_at}}
+    </ul>
+{% endfor %}
+</body>
+</html>

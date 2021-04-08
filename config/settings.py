@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'notification',
     'post',
     'user_profile',
+    'tagulous'
 ]
 
 MIDDLEWARE = [
