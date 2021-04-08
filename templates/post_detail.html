@@ -12,7 +12,7 @@
     <div>
     <img src="{{ post.post_pic.url }}" alt="">
     <p>{{post.caption}}</p>
-    <p>{{post.tags}}</p>
+    <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
     <p>{{post.created_at}}</p>
     <span>Like: {{post.likes}}</span>
     <span>Unlike: {{post.dislikes}}</span>

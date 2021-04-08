@@ -10,8 +10,10 @@
 {% include 'nav.html' %}
     <h1>Notification page</h1>
     {% for item in notifications %}
+    <ul>
     {{item}}
     {{item.text.created_at}}
+    </ul>
 {% endfor %}
 </body>
 </html>
