@@ -11,6 +11,7 @@
     <h1>Notification page</h1>
     {% for item in notifications %}
     {{item}}
+    {{item.text.created_at}}
 {% endfor %}
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from user_profile.models import CustomUser
+from tagulous.models import TagField
 
 class Post(models.Model):
     display_name = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -9,6 +10,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
+    tags = TagField()
 
     def __str__(self):
         return f'{self.display_name} | {self.caption}'

@@ -19,9 +19,9 @@ def post_view(request):
             new_data = Post.objects.create(
                 display_name = request.user,
                 caption = form.cleaned_data['caption'],
-                post_pic = form.cleaned_data['post_pic']
+                post_pic = form.cleaned_data['post_pic'],
+                tags = form.cleaned_data['tags']
             )
-            # new_data.save()
 
             notifications = re.findall(r'@(\S+)', form.cleaned_data['caption'])
             for string in notifications:
