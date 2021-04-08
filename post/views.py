@@ -7,7 +7,8 @@ from django.core.files.storage import FileSystemStorage
 
 @login_required
 def homepage(request):
-    return render(request, 'homepage.html')
+    feed = Post.objects.all().order_by('-created_at')
+    return render(request, 'homepage.html', {'feed': feed})
 
 @login_required 
 def post_view(request):
