@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% include 'nav.html' %}
+{%for item in tag %}
+<ul>
+    <img src="{{item.post_pic.url}}" alt="">
+    <p>{{item.tags}}</p>
+    <p>{{item.caption}}</p>
+    <p>{{item.created_at}}</p>
+</ul>
+{% endfor %}
+</body>
+</html>

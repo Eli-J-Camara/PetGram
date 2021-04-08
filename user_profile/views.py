@@ -1,7 +1,6 @@
 from post.models import Post
 from user_profile.models import CustomUser
 from .forms import ProfileForm
-# from authentication.forms import SignUpForm
 from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
@@ -35,3 +34,12 @@ def edit_profile_view(request, user_id):
 def profile_view(request, user_id):
     user = CustomUser.objects.get(id=user_id)
     return render(request, 'profile.html', {'user': user})
+
+def search_bar(request):
+    if request.method == 'POST':
+        search = request.POST['search']
+        users = CustomUser.objects.filter(display_name__contains=search)
+        return render(request, 'search_bar.html', {'search': search, 'users': users})
+    else:
+         return render(request, 'search_bar.html', {})
+
