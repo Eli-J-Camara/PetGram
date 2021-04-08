@@ -40,6 +40,12 @@ def profile_view(request, user_id):
     context = {'user': user,'form': form}
     return render(request, 'profile.html', context)
 
+def error_404_view(request,):
+    return render(request, '404.html', status=404)
+
+def error_500_view(request):
+    return render(request, '500.html', status=500)
+
 @login_required
 def follow_view(request, user_id):
     user = CustomUser.objects.get(id=user_id)
