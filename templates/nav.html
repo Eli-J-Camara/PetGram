@@ -12,6 +12,7 @@
 <a href="#">profile</a>
 <a href="/submit_post">create</a>
 <a href="/notifications">Notify</a>
+<a href="/feed">Explore</a>
 <form action="{% url 'search_bar' %}" method="POST">
   {% csrf_token %}
   <input type="text" placeholder="Search..." name="search" />

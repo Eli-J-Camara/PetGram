@@ -42,3 +42,11 @@ def post_view(request):
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'post_detail.html', {'post': post})
+
+def users_feed(request):
+    tag = Post.objects.all().order_by('-created_at')
+    return render(request, 'users_feed.html', {'tag':tag})
+
+def hashtag_view(request, tag_id):
+    tag = Post.objects.filter(tags=tag_id)
+    return render(request, 'hashtag.html', {'tag':tag})

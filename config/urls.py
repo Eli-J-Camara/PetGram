@@ -33,6 +33,8 @@ urlpatterns = [
     path('post_detail/<int:post_id>/', post.post_detail, name='post_detail'),
     path('search/', users.search_bar, name='search_bar'),
     path('notifications/', notify.notification_view, name='notification_view'),
+    path('feed/', post.users_feed, name='user_feed'),
+    path('hashtag/<int:tag_id>/', post.hashtag_view, name='hashtag_view'),
 ]
 
 if settings.DEBUG:
