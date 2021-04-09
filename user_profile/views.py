@@ -13,6 +13,7 @@ def edit_profile_view(request, user_id):
     context = {}
     user = CustomUser.objects.get(id=user_id)
     form = ProfileForm()
+    follows = True if user in request.user.follows.all() else False
 
     if request.method == 'POST':
         form = ProfileForm(request.POST)
@@ -25,11 +26,35 @@ def edit_profile_view(request, user_id):
             return HttpResponseRedirect(reverse('profile', kwargs={'user_id':user.id}))
 
     form = ProfileForm(
-        initial={'website': user.website, 'bio':user.bio, 'display_name':user.display_name,}
+        initial={
+            'website': user.website,
+            'bio':user.bio,
+            'display_name':user.display_name,
+         }
     )
 
-    context = {'user': user,'form': form}
-    return render(request, 'edit_profile.html', context)
+    context = {'user': user, 'form': form, 'follows': follows}
+    return render(request, 'edit_profile.html', context) 
+
+@login_required
+def follow_view(request, user_id):
+    user = request.user
+    to_follow = CustomUser.objects.get(id=user_id)
+    user.follows.add(to_follow)
+    user.save()
+    print('followed')
+    # return HttpResponseRedirect('/')
+    return HttpResponseRedirect(reverse('profile', kwargs={'user_id':to_follow.id}))
+
+@login_required
+def unfollow_view(request, user_id):
+    user = request.user
+    to_unfollowed = CustomUser.objects.get(id=user_id)
+    user.follows.remove(to_unfollowed)
+    user.save()
+    print('unfollow')
+    # return HttpResponseRedirect('/')   
+    return HttpResponseRedirect(reverse('profile', kwargs={'user_id': to_unfollowed.id}))   
 
 def profile_view(request, user_id):
     user = CustomUser.objects.get(id=user_id)
