@@ -12,8 +12,11 @@
     {% endcomment %}
     {% include 'nav.html' %}
     <form action="" method="POST" enctype="multipart/form-data">
-      {% csrf_token %} {{form.as_p}} {% comment %}
-      <input type="file" name="document" multiple /> {% endcomment %}
+      {% csrf_token %}
+      <ul>
+      <li>choose video or post</li>
+      </ul>
+      {{form.as_p}} 
       <input type="submit" value="Upload" />
     </form>
   </body>

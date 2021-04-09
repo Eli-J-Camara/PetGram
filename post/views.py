@@ -21,7 +21,7 @@ def post_view(request):
             new_data = Post.objects.create(
                 display_name = request.user,
                 caption = form.cleaned_data['caption'],
-                post_pic = form.cleaned_data['post_pic'],
+                post_file = form.cleaned_data['post_file'],
                 tags = form.cleaned_data['tags']
             )
 

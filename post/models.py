@@ -5,7 +5,8 @@ from tagulous.models import TagField
 
 class Post(models.Model):
     display_name = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    post_pic= models.ImageField(upload_to='post_img/', null=True)
+    post_file= models.FileField(upload_to='post/', null=True)
+    # post_vid= models.FileField(upload_to='video/', null=True, blank=True)
     caption = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     likes = models.IntegerField(default=0)
