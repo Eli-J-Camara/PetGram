@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect, reverse
-from post.models import Post
-from post.forms import PostForm
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
+from post.models import Post, Comment
+from post.forms import PostForm, CommentForm
 from user_profile.models import CustomUser
 from notification.models import Notification
 from django.contrib.auth.decorators import login_required
@@ -10,9 +10,10 @@ import re
 @login_required
 def homepage(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
-    return render(request, 'homepage.html', {'notify': notify})
+    feed = Post.objects.all().order_by('-created_at')
+    return render(request, 'homepage.html', {'feed': feed, 'notify': notify})
 
-@login_required
+@login_required 
 def post_view(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     if request.method == 'POST':
@@ -43,7 +44,25 @@ def post_view(request):
 
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    return render(request, 'post_detail.html', {'post': post})
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            print(request.user.id)
+            data=form.cleaned_data
+            comment = Comment.objects.create(
+                comment = data['comment'],
+                user = request.user,
+                post = post
+            )
+            return redirect(f'/post_detail/{post.id}')
+    form = CommentForm()
+    comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
+    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form})
+
+def comment_delete(request, id):
+    comment = Comment.objects.get(id=id)
+    comment.delete()
+    return redirect(f'/post_detail/{comment.post.id}')
 
 def users_feed(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
@@ -53,3 +72,4 @@ def users_feed(request):
 def hashtag_view(request, tag_id):
     tag = Post.objects.filter(tags=tag_id)
     return render(request, 'hashtag.html', {'tag':tag})
+
