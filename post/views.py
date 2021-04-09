@@ -10,11 +10,11 @@ import re
 @login_required
 def homepage(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
-    print(notify)
     return render(request, 'homepage.html', {'notify': notify})
 
 @login_required
 def post_view(request):
+    notify = Notification.objects.filter(reciever=request.user, read=False).count()
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -38,7 +38,7 @@ def post_view(request):
             return redirect(reverse('post_detail', args=[new_data.id]))
     else:
         form = PostForm()
-    return render(request, 'upload_form.html', {'form': form})
+    return render(request, 'upload_form.html', {'form': form, 'notify': notify})
 
 
 def post_detail(request, post_id):
@@ -46,8 +46,9 @@ def post_detail(request, post_id):
     return render(request, 'post_detail.html', {'post': post})
 
 def users_feed(request):
+    notify = Notification.objects.filter(reciever=request.user, read=False).count()
     tag = Post.objects.all().order_by('-created_at')
-    return render(request, 'users_feed.html', {'tag':tag})
+    return render(request, 'users_feed.html', {'tag':tag, 'notify': notify})
 
 def hashtag_view(request, tag_id):
     tag = Post.objects.filter(tags=tag_id)
