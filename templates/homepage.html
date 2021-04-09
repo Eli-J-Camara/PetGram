@@ -14,8 +14,8 @@
         <img style='width: 400px; height: auto;' src="{{ post.post_pic.url }}" alt="">
         <h3><a href="/post_detail/{{post.id}}">{{post.caption}}</a></h3>
         <p>{{post.created_at}}</p>
-        <span>Like: {{post.likes}}</span>
-        <span>Unlike: {{post.dislikes}}</span>
+        <span>Likes {{post.likes}}</span>
+
       </div>
     {% endfor %}
 </body>

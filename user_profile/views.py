@@ -58,7 +58,8 @@ def unfollow_view(request, user_id):
 
 def profile_view(request, user_id):
     user = CustomUser.objects.get(id=user_id)
-    return render(request, 'profile.html', {'user': user})
+    follow_count = user.follows.count() - 1
+    return render(request, 'profile.html', {'user': user, 'follow_count': follow_count})
 
 def search_bar(request):
     if request.method == 'POST':
