@@ -73,3 +73,25 @@ def hashtag_view(request, tag_id):
     tag = Post.objects.filter(tags=tag_id)
     return render(request, 'hashtag.html', {'tag':tag})
 
+
+def like_view(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.user_likes.add(request.user)
+    post.likes += 1
+    post.save()
+    return HttpResponseRedirect(f'/post_detail/{post.id}')
+
+
+def unlike_view(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post.user_likes.remove(request.user)
+    post.likes -= 1
+    post.save()
+    return HttpResponseRedirect(f'/post_detail/{post.id}')
+
+
+def delete_post_view(request, post_id):
+    current_post = Post.objects.get(id=post_id)
+    current_post.delete()
+    return HttpResponseRedirect('/')
+

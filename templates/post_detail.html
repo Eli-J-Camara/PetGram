@@ -14,8 +14,19 @@
     <p>{{post.caption}}</p>
     <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
     <p>{{post.created_at}}</p>
-    <span>Like: {{post.likes}}</span>
-    <span>Unlike: {{post.dislikes}}</span>
+    <span>Likes: {{post.likes}}</span>
+    <!-- <span>Unlike: {{post.dislikes}}</span> -->
+      <div>
+          {% if request.user in post.user_likes.all %}
+            <button><a href="/unlike/{{post.id}}/">UnLike</a></button>
+          {% else %}
+            <button><a href="/like/{{post.id}}/">Like</a></button>
+          {% endif %}
+      </div>
+      <br>
+      <div>
+        <button><a href="/delete/{{post.id}}/">Delete</a></button>
+      </div>
     </div>
     {% if request.user.id != None %}
         <form action="" method="POST">
