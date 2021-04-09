@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% include 'nav.html' %}
+{% if search %}
+    <h1>You Search For {{ search }} </h1>
+    <br>
+    {% comment %} can add image besides search {% endcomment %}
+    {% for u in users %}
+    {{u}} - {{u.bio}} <br>
+    {% endfor %}
+{% else %}
+    <h1>Opps no search was entered</h1>
+{% endif %}
+
+</body>
+</html>

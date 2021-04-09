@@ -7,10 +7,12 @@
     <title>Document</title>
 </head>
 <body>
+{% include 'nav.html' %}
     <h1>Post Detail</h1>
     <div>
     <img src="{{ post.post_pic.url }}" alt="">
     <p>{{post.caption}}</p>
+    <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
     <p>{{post.created_at}}</p>
     <span>Likes: {{post.likes}}</span>
     <!-- <span>Unlike: {{post.dislikes}}</span> -->
@@ -26,5 +28,25 @@
         <button><a href="/delete/{{post.id}}/">Delete</a></button>
       </div>
     </div>
+    {% if request.user.id != None %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+    <h2>Comments:</h2>
+    {% for comment in comments %}
+        <h3 style="display: inline;">
+            {{ comment.user.username }} 
+            <span style='font-weight: normal'>{{ comment.comment }}</span>
+            {% if request.user == comment.user %}
+                <a href='/comment_delete/{{ comment.id }}/'>
+                    <img style="width: 20px; padding-left: 30px;" src="/media/post_img/Delete.jpeg" alt="Delete Button">
+                </a>
+            {% endif %}
+        </h3>
+        <p>{{ comment.created_at }}</p>
+    {% endfor %}
 </body>
 </html>

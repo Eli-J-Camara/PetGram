@@ -27,6 +27,22 @@ argon2 = ["argon2-cffi (>=16.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-tagulous"
+version = "1.1.0"
+description = "Fabulous Tagging for Django"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=2.2"
+
+[package.extras]
+dev = ["tox", "jasmine"]
+devdb = ["psycopg2", "mysqlclient"]
+i18n = ["unidecode"]
+
+[[package]]
 name = "pillow"
 version = "8.2.0"
 description = "Python Imaging Library (Fork)"
@@ -64,7 +80,7 @@ python-versions = ">=3.5"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "d9cc8bc7680e7e7f2aec0e3fa9a37dabd657a6738f081ae4d1ac574ec402da10"
+content-hash = "199f7c6145dc4aa256d83ae9c0fde71cda84628e1bf0954f9987980e1d36033d"
 
 [metadata.files]
 asgiref = [
@@ -74,6 +90,10 @@ asgiref = [
 django = [
     {file = "Django-3.1.7-py3-none-any.whl", hash = "sha256:baf099db36ad31f970775d0be5587cc58a6256a6771a44eb795b554d45f211b8"},
     {file = "Django-3.1.7.tar.gz", hash = "sha256:32ce792ee9b6a0cbbec340123e229ac9f765dff8c2a4ae9247a14b2ba3a365a7"},
+]
+django-tagulous = [
+    {file = "django-tagulous-1.1.0.tar.gz", hash = "sha256:9bc9d1d066c486fac1a3ec351531e440bc239c459b043e9180d99d7846e45fd6"},
+    {file = "django_tagulous-1.1.0-py3-none-any.whl", hash = "sha256:de2a56ed92374b79358275ac0b7910af2c3d2823f44a847bef91ca9e456353ba"},
 ]
 pillow = [
     {file = "Pillow-8.2.0-cp36-cp36m-macosx_10_10_x86_64.whl", hash = "sha256:dc38f57d8f20f06dd7c3161c59ca2c86893632623f33a42d592f097b00f720a9"},
