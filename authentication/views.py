@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from user_profile.models import CustomUser
 from authentication.forms import SignUpForm, LoginForm
+from django.contrib import messages
 
 class SignUpView(View):
     def get(self, request):
@@ -19,7 +20,7 @@ class SignUpView(View):
                 username=data.get('username'),
                 bio=data.get('bio'),
                 email=data.get('email'),
-                password=data.get('password')
+                password=data.get('password'),
             )
             login(request, user)
             return redirect('homepage')
@@ -46,6 +47,7 @@ class LoginView(View):
                 login(request, user)
                 print('You are in!')
             else:
+                messages.error(request,'username or password is invalid')
                 print("Please signup")
         return HttpResponseRedirect(reverse('homepage'))
 

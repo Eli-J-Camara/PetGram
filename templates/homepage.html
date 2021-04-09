@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Homepage</h1>
-    <a href="/logout">logout</a>
+    {% include 'nav.html' %}
+    {% for post in feed %}
+      <div style='padding-top: 15px'>
+        <img style='width: 400px; height: auto;' src="{{ post.post_pic.url }}" alt="">
+        <h3><a href="/post_detail/{{post.id}}">{{post.caption}}</a></h3>
+        <p>{{post.created_at}}</p>
+        <span>Like: {{post.likes}}</span>
+        <span>Unlike: {{post.dislikes}}</span>
+      </div>
+    {% endfor %}
 </body>
 </html>
