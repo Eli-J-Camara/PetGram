@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+</head>
+<body>
+    <img src="{user.profile_file" alt="Profile Picture">
+    <h1>{{ user.display_name }}</h1>
+    <h3 style='display: inline;'>
+        User Name: {{ user.username }}
+        <span style="margin-left: 80px">
+            <strong>Follows</strong> {{ follow_count }}
+        </span>
+    </h3> 
+    <p><strong>Bio:</strong> {{ user.bio }}</p>
+    <a href="{{ user.website }}">{{ user.website }}</a>
+    <p>
+        {% if request.user == user %}
+            <a href='/logout'><button>logout</button></a>
+            <a href="/edit/{{user.id}}/"><button>edit</button></a>
+        {% endif %}
+    </p>
+    {% if request.user != user %}
+        {% if user.is_authenticated %}
+            {% if user in request.user.follows.all  %}
+                <a href="{% url 'unfollow' user.id %}"><button>unfollow</button></a>
+            {% else %}
+                <a href="/follow/{{user.id}}/"><button>follow</button></a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</body>
+</html>
+
+
