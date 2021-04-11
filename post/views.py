@@ -15,6 +15,13 @@ def homepage(request):
     feed = Post.objects.filter(display_name__id__in=following).order_by('-created_at').all()
     return render(request, 'homepage.html', {'feed': feed, 'notify': notify})
 
+
+def error_404_view(request,):
+    return render(request, '404.html', status=404)
+
+def error_500_view(request):
+    return render(request, '500.html', status=500)
+
 @login_required 
 def post_view(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
