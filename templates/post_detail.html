@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% include 'nav.html' %}
+    <h1>Post Detail</h1>
+    <div>
+        {% comment %} if statement if the invidual uploads a image or pic {% endcomment %}
+        {% if post.post_file.url|slice:"-5:"  == '.jpeg' %}
+        <img src="{{ post.post_file.url }}" alt="" />
+        {% else %}
+        <video
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster=""
+            data-setup="{}"
+        >
+            <source src="{{post.post_file.url}}" type="video/mp4" />
+        </video>
+        {% endif %}
+        <p>{{ post.caption }}</p>
+        <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
+        <p>{{post.created_at}}</p>
+        <span>Likes: {{post.likes}}</span>
+        <div>
+            {% if request.user in post.user_likes.all %}
+            <button><a href="/unlike/{{post.id}}/">UnLike</a></button>
+            {% else %}
+            <button><a href="/like/{{post.id}}/">Like</a></button>
+            {% endif %}
+        </div>
+        {% if request.user.id != None %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Submit">
+            </form>
+        <br>
+        <div>
+            <button><a href="/delete/{{post.id}}/">Delete</a></button>
+        </div>
+    </div>
+        {% endif %}
+        <h2>Comments:</h2>
+        {% for comment in comments %}
+            <h3 style="display: inline;">
+                {{ comment.user.username }} 
+                <span style='font-weight: normal'>{{ comment.comment }}</span>
+                {% if request.user == comment.user %}
+                    <a href='/comment_delete/{{ comment.id }}/'>
+                        <img style="width: 20px; padding-left: 30px;" src="/media/post_img/Delete.jpeg" alt="Delete Button">
+                    </a>
+                {% endif %}
+            </h3>
+            <p>{{ comment.created_at }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="video">
+    </div>
+
+    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+  </body>
+</html>
