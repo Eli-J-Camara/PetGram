@@ -4,17 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
     <title>Document</title>
 </head>
 <body>
 {% include 'nav.html' %}
 {%for item in tag %}
 <ul>
-    <img src="{{item.post_pic.url}}" alt="">
+    {% comment %} if statement if the invidual uploads a image or pic {% endcomment %}
+        {% if item.post_file.url|slice:"-5:"  == '.jpeg' %}
+        <img src="{{ item.post_file.url }}" alt="" />
+        {% else %}
+        <video
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster=""
+            data-setup="{}"
+        >
+            <source src="{{item.post_file.url}}" type="video/mp4" />
+        </video>
+    {% endif %}
     <p>{{item.tags}}</p>
     <p>{{item.caption}}</p>
     <p>{{item.created_at}}</p>
 </ul>
 {% endfor %}
+
+<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 </body>
 </html>

@@ -20,6 +20,7 @@ STATIC_DIRS = os.path.join(BASE_DIR, 'static')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
+# SECURITY WARNING: keep the secret key used in production secret!
 # Add .env variables anywhere before SECRET_KEY
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
@@ -136,3 +137,5 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'user_profile.CustomUser'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
