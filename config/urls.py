@@ -31,3 +31,14 @@ urlpatterns = [
     path('404/',error_404_view, name='404'),
     path('500/',error_500_view, name='500'),
 ]
+
+
+
+auth_handler404 = 'authentication.views.error_404_view'
+notify_handler404 = 'notification.views.error_404_view'
+post_handler404 = 'post.views.error_404_view'
+user_handler404 = 'user_profile.views.error_404_view'
+auth_handler500 = 'authentication.views.error_500_view'
+notify_handler500 = 'notification.views.error_500_view'
+post_handler500 = 'post.views.error_500_view'
+user_handler500 = 'user_profile.views.error_500_view'
