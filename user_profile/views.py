@@ -50,6 +50,7 @@ def follow_view(request, user_id):
     user = request.user
     to_follow = CustomUser.objects.get(id=user_id)
     user.follows.add(to_follow)
+    to_follow.followers.add(user)
     user.save()
     print('followed')
     # return HttpResponseRedirect('/')
@@ -60,6 +61,7 @@ def unfollow_view(request, user_id):
     user = request.user
     to_unfollowed = CustomUser.objects.get(id=user_id)
     user.follows.remove(to_unfollowed)
+    to_follow.followers.remove(user)
     user.save()
     print('unfollow')
     # return HttpResponseRedirect('/')   
@@ -69,8 +71,9 @@ def profile_view(request, user_id):
     # notify = Notification.objects.filter(reciever=request.user, read=False).count()
     user_obj = CustomUser.objects.get(id=user_id)
     post = Post.objects.filter(display_name=user_obj).order_by('-created_at')
-    follow_count = user_obj.follows.count() - 1
-    return render(request, 'profile.html', {'user': user_obj, 'follow_count': follow_count, 'post': post})
+    following_count = user_obj.follows.count() - 1
+    follower_count = user_obj.followers.count()
+    return render(request, 'profile.html', {'user': user_obj, 'following_count': following_count, 'follower_count': follower_count, 'post': post})
 
 @login_required
 def search_bar(request):
