@@ -5,18 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
     <title>Document</title>
 </head>
 <body>
     {% include 'nav.html' %}
+
     {% for post in feed %}
       <div style='padding-top: 15px'>
-        <img style='width: 400px; height: auto;' src="{{ post.post_pic.url }}" alt="">
-        <h3><a href="/post_detail/{{post.id}}">{{post.caption}}</a></h3>
+        {% comment %} if statement if the invidual uploads a image or pic {% endcomment %}
+        {% if post.post_file.url|slice:"-4:"  == '.mp4' or post.post_file.url|slice:"-4:"  == '.mov' %}
+        <video
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster=""
+            data-setup="{}"
+        >
+            <source src="{{post.post_file.url}}" type="video/mp4" />
+        </video>
+        {% else %}
+        <img src="{{ post.post_file.url }}" alt="" />
+        {% endif %}
+        <h3><a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a></h3>
+        <p><a href="/post_detail/{{post.id}}">{{post.caption}}</a></p>
         <p>{{post.created_at}}</p>
-        <span>Like: {{post.likes}}</span>
-        <span>Unlike: {{post.dislikes}}</span>
+        <span>Likes {{post.likes}}</span>
       </div>
     {% endfor %}
+<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 </body>
 </html>

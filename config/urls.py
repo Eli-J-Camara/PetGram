@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
 from django.contrib import admin
 from django.urls import path
 from authentication import views as auth
@@ -29,6 +28,8 @@ urlpatterns = [
     path('signup/', auth.SignUpView.as_view(), name='signup'),
     path('login/', auth.LoginView.as_view(), name='login'),
     path('logout/', auth.LogoutView.as_view(), name='logout'),
+    path('404/', profile.error_404_view, name='404'),
+    path('500/', profile.error_500_view, name='500'),
     path('follow/<int:user_id>/', profile.follow_view, name='follow'),
     path('unfollow/<int:user_id>/', profile.unfollow_view, name='unfollow'),
     path('edit/<int:user_id>/', profile.edit_profile_view, name='edit profile'),
@@ -48,3 +49,12 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+auth_handler404 = 'authentication.views.error_404_view'
+notify_handler404 = 'notification.views.error_404_view'
+post_handler404 = 'post.views.error_404_view'
+user_handler404 = 'user_profile.views.error_404_view'
+auth_handler500 = 'authentication.views.error_500_view'
+notify_handler500 = 'notification.views.error_500_view'
+post_handler500 = 'post.views.error_500_view'
+user_handler500 = 'user_profile.views.error_500_view'

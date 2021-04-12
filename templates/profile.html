@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
     <title>Profile Page</title>
 </head>
 <body>
-    <img src="{user.profile_pic" alt="Profile Picture">
+{% include 'nav.html' %}
+<div>
+    <img src="{user.profile_file" alt="Profile Picture">
     <h1>{{ user.display_name }}</h1>
     <h3 style='display: inline;'>
         User Name: {{ user.username }}
         <span style="margin-left: 80px">
-            <strong>Follows</strong> {{ user.follows.all.count }}
+            <strong>Follows</strong> {{ follow_count }}
         </span>
     </h3> 
     <p><strong>Bio:</strong> {{ user.bio }}</p>
     <a href="{{ user.website }}">{{ user.website }}</a>
     <p>
         {% if request.user == user %}
-            <a href='/logout'><button>logout</button></a>
             <a href="/edit/{{user.id}}/"><button>edit</button></a>
         {% endif %}
     </p>
@@ -31,13 +34,34 @@
             {% endif %}
         {% endif %}
     {% endif %}
+    {% for item in post %}
+    <div style='padding-top: 15px'>
+        {% comment %} if statement if the invidual uploads a image or pic {% endcomment %}
+        {% if item.post_file.url|slice:"-4:"  == '.mp4' or item.post_file.url|slice:"-4:"  == '.mov' %}
+        <video
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster=""
+            data-setup="{}"
+        >
+            <source src="{{item.post_file.url}}" type="video/mp4" />
+        </video>
+        {% else %}
+        <img src="{{ item.post_file.url }}" alt="" />
+        {% endif %}
+        <h3>{{item.display_name}}</h3>
+        <p><a href="/post_detail/{{item.id}}">{{item.caption}}</a></p>
+        <p>{{item.created_at}}</p>
+        <span>Likes {{item.likes}}</span>
+      </div>
+    {% endfor %}
+</div>
+<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 </body>
 </html>
 
-<!-- <form method='post'>{% csrf_token %}{{ form.as_p }}<input type= "submit" value="submit"></form>
-
-
-
-<p><a href='/logout'>logout</a></p>
-<a href="/profile/edit/{{user.id}}/"><button>edit</button></a> -->
 

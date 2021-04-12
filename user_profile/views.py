@@ -1,16 +1,19 @@
 from post.models import Post
 from user_profile.models import CustomUser
 from .forms import ProfileForm
+from notification.models import Notification
 from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
 
-@login_required
-def homepage(request):
-    return render(request, 'homepage.html')
+# @login_required
+# def homepage(request):
+#     return render(request, 'homepage.html')
 
+@login_required
 def edit_profile_view(request, user_id):
     context = {}
+    notify = Notification.objects.filter(reciever=request.user, read=False).count()
     user = CustomUser.objects.get(id=user_id)
     form = ProfileForm()
     follows = True if user in request.user.follows.all() else False
@@ -33,8 +36,14 @@ def edit_profile_view(request, user_id):
          }
     )
 
-    context = {'user': user, 'form': form, 'follows': follows}
+    context = {'user': user, 'form': form, 'follows': follows, 'notify': notify}
     return render(request, 'edit_profile.html', context) 
+
+def error_404_view(request,):
+    return render(request, '404.html', status=404)
+
+def error_500_view(request):
+    return render(request, '500.html', status=500)
 
 @login_required
 def follow_view(request, user_id):
@@ -57,14 +66,19 @@ def unfollow_view(request, user_id):
     return HttpResponseRedirect(reverse('profile', kwargs={'user_id': to_unfollowed.id}))   
 
 def profile_view(request, user_id):
-    user = CustomUser.objects.get(id=user_id)
-    return render(request, 'profile.html', {'user': user})
+    # notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    user_obj = CustomUser.objects.get(id=user_id)
+    post = Post.objects.filter(display_name=user_obj).order_by('-created_at')
+    follow_count = user_obj.follows.count() - 1
+    return render(request, 'profile.html', {'user': user_obj, 'follow_count': follow_count, 'post': post})
 
+@login_required
 def search_bar(request):
+    notify = Notification.objects.filter(reciever=request.user, read=False).count()
     if request.method == 'POST':
         search = request.POST['search']
         users = CustomUser.objects.filter(username__contains=search)
         return render(request, 'search_bar.html', {'search': search, 'users': users})
     else:
-         return render(request, 'search_bar.html', {})
+         return render(request, 'search_bar.html', {'notify': notify})
 

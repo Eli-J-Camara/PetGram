@@ -4,18 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
     <title>Document</title>
 </head>
 <body>
+{% include 'nav.html' %}
 {% for t in tag %}
     {% comment %} {{tag}} {% endcomment %}
     <ul>
-    <img src="{{t.post_pic.url}}" alt="">
+    {% if t.post_file.url|slice:"-4:"  == '.mp4' or t.post_file.url|slice:"-4:"  == '.mov' %}
+        <video
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster=""
+            data-setup="{}"
+        >
+            <source src="{{t.post_file.url}}" type="video/mp4" />
+        </video>
+        {% else %}
+        <img src="{{ t.post_file.url }}" alt="" />
+    {% endif %}
     {{t.display_name}}
     {{t.tags}}
     {{t.caption}}
     {{t.created_at}}
     </ul>
 {% endfor %}
+
+<script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 </body>
 </html>
