@@ -13,9 +13,7 @@
     <h1>Post Detail</h1>
     <div>
         {% comment %} if statement if the invidual uploads a image or pic {% endcomment %}
-        {% if post.post_file.url|slice:"-5:"  == '.jpeg' %}
-        <img src="{{ post.post_file.url }}" alt="" />
-        {% else %}
+        {% if post.post_file.url|slice:"-4:"  == '.mp4' or post.post_file.url|slice:"-4:"  == '.mov' %}
         <video
             id="my-video"
             class="video-js"
@@ -28,7 +26,10 @@
         >
             <source src="{{post.post_file.url}}" type="video/mp4" />
         </video>
+        {% else %}
+        <img src="{{ post.post_file.url }}" alt="" />
         {% endif %}
+        <h3>{{post.display_name}}</h3>
         <p>{{ post.caption }}</p>
         <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
         <p>{{post.created_at}}</p>

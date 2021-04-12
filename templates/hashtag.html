@@ -8,10 +8,26 @@
     <title>Document</title>
 </head>
 <body>
+{% include 'nav.html' %}
 {% for t in tag %}
     {% comment %} {{tag}} {% endcomment %}
     <ul>
-    <img src="{{t.post_file.url}}" alt="">
+    {% if t.post_file.url|slice:"-4:"  == '.mp4' or t.post_file.url|slice:"-4:"  == '.mov' %}
+        <video
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster=""
+            data-setup="{}"
+        >
+            <source src="{{t.post_file.url}}" type="video/mp4" />
+        </video>
+        {% else %}
+        <img src="{{ t.post_file.url }}" alt="" />
+    {% endif %}
     {{t.display_name}}
     {{t.tags}}
     {{t.caption}}

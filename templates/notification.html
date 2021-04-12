@@ -11,6 +11,22 @@
     <h1>Notification page</h1>
     {% for item in notifications %}
     <ul>
+    {% if item.text.post_file.url|slice:"-4:"  == '.mp4' or item.text.post_file.url|slice:"-4:"  == '.mov' %}
+        <video
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster=""
+            data-setup="{}"
+        >
+            <source src="{{item.text.post_file.url}}" type="video/mp4" />
+        </video>
+        {% else %}
+        <img src="{{ item.text.post_file.url }}" alt="" />
+        {% endif %}
     {{item}}
     {{item.text.created_at}}
     </ul>

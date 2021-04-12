@@ -7,7 +7,7 @@ from django.core.validators import FileExtensionValidator
 
 class Post(models.Model):
     display_name = models.ForeignKey(CustomUser, related_name='user', on_delete=models.CASCADE)
-    post_file= models.FileField(upload_to='post/', validators=[FileExtensionValidator(['jpg','jpeg','mp4', 'mov'])], null=True)
+    post_file= models.FileField(upload_to='post/', validators=[FileExtensionValidator(['jpg','jpeg','mp4', 'mov', 'png'])], null=True)
     # post_vid= models.FileField(upload_to='video/', null=True, blank=True)
     caption = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)

@@ -12,9 +12,7 @@
 {%for item in tag %}
 <ul>
     {% comment %} if statement if the invidual uploads a image or pic {% endcomment %}
-        {% if item.post_file.url|slice:"-5:"  == '.jpeg' %}
-        <img src="{{ item.post_file.url }}" alt="" />
-        {% else %}
+        {% if item.post_file.url|slice:"-4:"  == '.mp4' or item.post_file.url|slice:"-4:"  == '.mov' %}
         <video
             id="my-video"
             class="video-js"
@@ -27,6 +25,8 @@
         >
             <source src="{{item.post_file.url}}" type="video/mp4" />
         </video>
+        {% else %}
+        <img src="{{ item.post_file.url }}" alt="" />
     {% endif %}
     <p>{{item.tags}}</p>
     <p>{{item.caption}}</p>
