@@ -9,8 +9,7 @@
 </head>
 <body>
 {% include 'nav.html' %}
-{% for t in tag %}
-    {% comment %} {{tag}} {% endcomment %}
+{% for t in post %}
     <ul>
     {% if t.post_file.url|slice:"-4:"  == '.mp4' or t.post_file.url|slice:"-4:"  == '.mov' %}
         <video
