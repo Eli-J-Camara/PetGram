@@ -10,7 +10,7 @@
 <body> 
 <a href="/">Home</a>
 {% if user.is_authenticated %}
-<a href="/profile/{{user.id}}">Profile</a>
+<a href="/profile/{{request.user.id}}">Profile</a>
 <a href="/submit_post">Create</a>
 <a href="/notifications">Notification({{notify}})</a>
 <a href="/feed">Explore</a>
