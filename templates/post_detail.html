@@ -30,8 +30,7 @@
         <img src="{{ post.post_file.url }}" alt="" />
         {% endif %}
         <h3>{{post.display_name}}</h3>
-        <p>{{ post.caption }}</p>
-        <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
+        <p>{{post.caption}}</p>
         <p>{{post.created_at}}</p>
         <span>Likes: {{post.likes}}</span>
         <div>
@@ -68,8 +67,6 @@
         {% endfor %}
     </div>
 
-    <div class="video">
-    </div>
 
     <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
   </body>

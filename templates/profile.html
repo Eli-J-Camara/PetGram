@@ -17,6 +17,9 @@
         <span style="margin-left: 80px">
             <strong>Follows</strong> {{ follow_count }}
         </span>
+         <p>
+            <strong>Post:</strong> {{ cnt }}
+        </p>
     </h3> 
     <p><strong>Bio:</strong> {{ user.bio }}</p>
     <a href="{{ user.website }}">{{ user.website }}</a>
@@ -54,7 +57,7 @@
         <a href="/post_detail/{{item.id}}"><img src="{{ item.post_file.url }}" alt="" /></a>
         {% endif %}
         <h3>{{item.display_name}}</h3>
-        <p>{{item.caption}}</p>
+        <p>{{item.caption}}</a>
         <p>{{item.created_at}}</p>
         <span>Likes {{item.likes}}</span>
       </div>

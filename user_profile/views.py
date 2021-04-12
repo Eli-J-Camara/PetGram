@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 def edit_profile_view(request, user_id):
     context = {}
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
     user = CustomUser.objects.get(id=user_id)
     form = ProfileForm()
     follows = True if user in request.user.follows.all() else False
@@ -36,7 +37,7 @@ def edit_profile_view(request, user_id):
          }
     )
 
-    context = {'user': user, 'form': form, 'follows': follows, 'notify': notify}
+    context = {'user': user, 'form': form, 'follows': follows, 'notify': notify, 'cnotify': cnotify}
     return render(request, 'edit_profile.html', context) 
 
 def error_404_view(request,):
@@ -69,16 +70,18 @@ def profile_view(request, user_id):
     # notify = Notification.objects.filter(reciever=request.user, read=False).count()
     user_obj = CustomUser.objects.get(id=user_id)
     post = Post.objects.filter(display_name=user_obj).order_by('-created_at')
+    cnt = Post.objects.filter(display_name=user_obj).count()
     follow_count = user_obj.follows.count() - 1
-    return render(request, 'profile.html', {'user': user_obj, 'follow_count': follow_count, 'post': post})
+    return render(request, 'profile.html', {'user': user_obj, 'follow_count': follow_count, 'post': post, 'cnt': cnt})
 
 @login_required
 def search_bar(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
     if request.method == 'POST':
         search = request.POST['search']
         users = CustomUser.objects.filter(username__contains=search)
         return render(request, 'search_bar.html', {'search': search, 'users': users})
     else:
-         return render(request, 'search_bar.html', {'notify': notify})
+         return render(request, 'search_bar.html', {'notify': notify, 'cnotify': cnotify})
 

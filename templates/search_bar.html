@@ -13,7 +13,7 @@
     <br>
     {% comment %} can add image besides search {% endcomment %}
     {% for u in users %}
-    {{u}} - {{u.bio}} <br>
+    <a href="/profile/{{u.id}}">{{u}}</a> - {{u.bio}} <br>
     {% endfor %}
 {% else %}
     <h1>Opps no search was entered</h1>
