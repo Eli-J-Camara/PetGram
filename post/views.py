@@ -33,19 +33,18 @@ def post_view(request):
                 display_name = request.user,
                 caption = form.cleaned_data['caption'],
                 post_file = form.cleaned_data['post_file'],
-        
             )
 
             hashtags = re.findall(r'#(\S+)', form.cleaned_data['caption'])
             for item in hashtags:
                 tag = slugify(item[0:50])
                 new_tag = Hashtags.objects.get_or_create(
-                    slug = item
+                    slug = tag
                 )[0]
                 new_tag.post.add(new_data)
                 new_tag.save()
                 print(new_tag)
-                
+        
             notifications = re.findall(r'@(\S+)', form.cleaned_data['caption'])
             for string in notifications:
                 user = CustomUser.objects.filter(username=string).first()
@@ -93,9 +92,10 @@ def users_feed(request):
     return render(request, 'users_feed.html', {'tag':tag, 'notify': notify})
 
 @login_required
-def hashtag_view(request, tag_id):
-    tag = Post.objects.filter(tags=tag_id)
-    return render(request, 'hashtag.html', {'tag':tag})
+def hashtag_view(request, slug_id):
+    tag = Hashtags.objects.get(slug=slug_id)
+    post = tag.post.all().order_by('-created_at')
+    return render(request, 'hashtag.html', {'tag':tag, 'post': post})
 
 @login_required
 def like_view(request, post_id):
