@@ -9,7 +9,7 @@ class SignUpView(View):
     def get(self, request):
         template_name = 'generic_form.html'
         form = SignUpForm()
-        return render(request, template_name, {'form':form, 'header':'Sign Up'})
+        return render(request, template_name, {'form':form, 'headertwo':'Sign Up'})
     
     def post(self, request):
         form = SignUpForm(request.POST)
@@ -34,7 +34,7 @@ class LoginView(View):
     def get(self, request):
         
         form = LoginForm()
-        return render(request, self.template_name, {'form':form, 'header':'Login'})
+        return render(request, self.template_name, {'form':form, 'headerone':'Login'})
     
     def post(self, request):
         form = LoginForm(request.POST)
