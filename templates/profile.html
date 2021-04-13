@@ -19,6 +19,7 @@
         </span>
     </h3> 
     <p><strong>Bio:</strong> {{ user.bio }}</p>
+    <p>{{ user.pet_type }}</p>
     <a href="{{ user.website }}">{{ user.website }}</a>
     <p>
         {% if request.user == user %}
@@ -58,6 +59,11 @@
         <p>{{item.created_at}}</p>
         <span>Likes {{item.likes}}</span>
       </div>
+    {% endfor %}
+    {%for users in follow_list%}
+    <ul>
+        <li>{{users}} </li>
+    </ul>
     {% endfor %}
 </div>
 <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
