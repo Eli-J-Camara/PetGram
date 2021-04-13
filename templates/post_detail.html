@@ -29,8 +29,20 @@
         {% else %}
         <img src="{{ post.post_file.url }}" alt="" />
         {% endif %}
-        <h3>{{post.display_name}}</h3>
-        <p>{{ post.caption }}</p>
+        <h3>{{post.display_name|display}}</h3>
+        <!-- <p>{{ post.caption }}</p> -->
+        <p>
+            {% for word in cap %}
+                {% if word|slice:'0' == '#' %}
+                    <a href="/hashtag/word|slice:'1:'/">{{ word }}</a>
+                {% else %}
+                    {{ word }}
+                {% endif %}
+            {% endfor%} 
+        </p>
+        
+        
+
         <label for="cars">Hashtags:</label>
         {% for tag in hashtags %}
             <span><a href="/hashtag/{{tag.lower}}/">#{{ tag }}</a></span>

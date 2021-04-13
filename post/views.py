@@ -64,6 +64,7 @@ def post_view(request):
 def post_detail(request, post_id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     post = Post.objects.get(id=post_id)
+    cap = post.caption.split(' ')
     hashtags = re.findall(r'#(\S+)', post.caption)
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -78,7 +79,14 @@ def post_detail(request, post_id):
             return redirect(f'/post_detail/{post.id}')
     form = CommentForm()
     comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
-    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'notify': notify, 'hashtags': hashtags})
+    return render(request, 'post_detail.html', {
+        'post': post,
+        'comments': comments, 
+        'form': form, 
+        'notify': notify, 
+        'hashtags': hashtags, 
+        'cap': cap
+        })
 
 @login_required
 def comment_delete(request, id):
