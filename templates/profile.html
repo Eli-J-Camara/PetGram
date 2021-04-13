@@ -19,6 +19,7 @@
         </span>
     </h3> 
     <p><strong>Bio:</strong> {{ user.bio }}</p>
+    <p>{{ user.pet_type }}</p>
     <a href="{{ user.website }}">{{ user.website }}</a>
     <p>
         {% if request.user == user %}
