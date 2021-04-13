@@ -8,7 +8,8 @@
   </head>
   <body>
     {% include 'nav.html' %}
-    <h1>{{ header }}</h1>
+    <h1>{{ headerone }}</h1>
+    <h1>{{ headertwo }}</h1>
     <form action="" method="POST">
       {% csrf_token %} 
         {{form.as_p}}
@@ -19,6 +20,11 @@
             </div>
           {% endfor %}
         {% endif %}
+        {% if headertwo %}
+          <p>Already have an account <a href="/login">Login</a></p>
+          {% elif headerone %}
+          <p>Don't have an account <a href="/signup">Sign Up</a></p>
+          {% endif %}
         <input type="submit" value="Submit" />
     </form>
   </body>

@@ -1,16 +1,19 @@
 from django.db import models
 from django.utils import timezone
 from user_profile.models import CustomUser
-from tagulous.models import TagField
+from django.core.validators import FileExtensionValidator
+
 
 class Post(models.Model):
-    display_name = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    post_pic= models.ImageField(upload_to='post_img/', null=True)
+    display_name = models.ForeignKey(CustomUser, related_name='user', on_delete=models.CASCADE)
+    post_file= models.FileField(upload_to='post/', validators=[FileExtensionValidator(['jpg','jpeg','mp4', 'mov', 'png'])], null=True)
+    # post_vid= models.FileField(upload_to='video/', null=True, blank=True)
     caption = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
     likes = models.IntegerField(default=0)
+    user_likes = models.ManyToManyField(CustomUser, related_name='user_likes', symmetrical=False, default=CustomUser, blank=True)
+    # dislikes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
-    tags = TagField()
 
     def __str__(self):
         return f'{self.display_name} | {self.caption}'
@@ -23,3 +26,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+
+class Hashtags(models.Model):
+    post = models.ManyToManyField(Post)
+    slug = models.SlugField(max_length=50)
+    slug = models.SlugField(max_length=50)
+
+    def __str__(self):
+        return self.slug
+    

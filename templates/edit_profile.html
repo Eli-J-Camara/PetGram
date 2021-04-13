@@ -6,10 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+{% include 'nav.html' %}
     <form method='post'>
         {% csrf_token %}
         {{ form.as_p }}
-        <input type= "submit" value="edit"> <a href="/profile/{{user.id}}/"><button>cancel</button></a>
+        <input type= "submit" value="Submit"> <a href="/profile/{{user.id}}/"><button>cancel</button></a>
     </form>
 </body>
 </html>

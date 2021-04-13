@@ -6,7 +6,15 @@ class PostForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        fields = ('post_pic', 'caption', 'tags')
+        fields = ('post_file', 'caption')
     
 class CommentForm(forms.Form):
     comment = forms.CharField()
+
+class EditPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = [
+            'post_file',
+            'caption'
+        ]

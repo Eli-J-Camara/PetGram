@@ -9,7 +9,7 @@ class SignUpView(View):
     def get(self, request):
         template_name = 'generic_form.html'
         form = SignUpForm()
-        return render(request, template_name, {'form':form, 'header':'Sign Up'})
+        return render(request, template_name, {'form':form, 'headertwo':'Sign Up'})
     
     def post(self, request):
         form = SignUpForm(request.POST)
@@ -21,9 +21,14 @@ class SignUpView(View):
                 bio=data.get('bio'),
                 email=data.get('email'),
                 password=data.get('password'),
+                pet_type=data.get('pet_type'),
             )
             login(request, user)
-            return redirect('homepage')
+            # request.user.follows.add(request.user)
+            # request.user.save()
+
+            
+            return HttpResponseRedirect(request.GET.get('next', reverse('homepage')))
 
 class LoginView(View):
     template_name = 'generic_form.html'
@@ -31,7 +36,7 @@ class LoginView(View):
     def get(self, request):
         
         form = LoginForm()
-        return render(request, self.template_name, {'form':form, 'header':'Login'})
+        return render(request, self.template_name, {'form':form, 'headerone':'Login'})
     
     def post(self, request):
         form = LoginForm(request.POST)
@@ -49,9 +54,15 @@ class LoginView(View):
             else:
                 messages.error(request,'username or password is invalid')
                 print("Please signup")
-        return HttpResponseRedirect(reverse('homepage'))
+        return HttpResponseRedirect(request.GET.get('next', reverse('homepage')))
 
 class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect(reverse('homepage'))
+
+def error_404_view(request,):
+    return render(request, '404.html', status=404)
+
+def error_500_view(request):
+    return render(request, '500.html', status=500)        
