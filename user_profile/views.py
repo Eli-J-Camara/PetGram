@@ -71,9 +71,10 @@ def profile_view(request, user_id):
     # notify = Notification.objects.filter(reciever=request.user, read=False).count()
     user_obj = CustomUser.objects.get(id=user_id)
     post = Post.objects.filter(display_name=user_obj).order_by('-created_at')
-    following_count = user_obj.follows.count() - 1
+    following_count = user_obj.follows.count()
     follower_count = user_obj.followers.count()
-    return render(request, 'profile.html', {'user': user_obj, 'following_count': following_count, 'follower_count': follower_count, 'post': post})
+    follow_list = user_obj.follows.all()
+    return render(request, 'profile.html', {'user': user_obj, 'follow_list':follow_list, 'following_count': following_count, 'follower_count': follower_count, 'post': post})
 
 @login_required
 def search_bar(request):
@@ -84,4 +85,6 @@ def search_bar(request):
         return render(request, 'search_bar.html', {'search': search, 'users': users})
     else:
          return render(request, 'search_bar.html', {'notify': notify})
+
+
 
