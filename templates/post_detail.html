@@ -31,6 +31,10 @@
         {% endif %}
         <h3>{{post.display_name}}</h3>
         <p>{{ post.caption }}</p>
+        <label for="cars">Hashtags:</label>
+        {% for tag in hashtags %}
+            <span><a href="/hashtag/{{tag.lower}}/">#{{ tag }}</a></span>
+        {% endfor %}
         <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
         <p>{{post.created_at}}</p>
         <span>Likes: {{post.likes}}</span>
@@ -39,6 +43,7 @@
             <button><a href="/unlike/{{post.id}}/">UnLike</a></button>
             {% else %}
             <button><a href="/like/{{post.id}}/">Like</a></button>
+            <button><a href="/edit_post/{{post.id}}">Edit</a></button>
             {% endif %}
         </div>
         {% if request.user.id != None %}
