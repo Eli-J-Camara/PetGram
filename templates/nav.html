@@ -12,7 +12,7 @@
 {% if request.user.is_authenticated %}
 <a href="/profile/{{request.user.id}}">Profile</a>
 <a href="/submit_post">Create</a>
-<a href="/notifications">Notification({{notify}})</a>
+<a href="/notifications">Notification({{total_notify}})</a>
 <a href="/feed">Explore</a>
 <a href="/logout">Logout</a>
 {% endif %}

@@ -12,7 +12,6 @@
     {% include 'nav.html' %}
     <h1>Post Detail</h1>
     <div>
-        {% comment %} if statement if the invidual uploads a image or pic {% endcomment %}
         {% if post.post_file.url|slice:"-4:"  == '.mp4' or post.post_file.url|slice:"-4:"  == '.mov' %}
         <video
             id="my-video"
@@ -30,7 +29,6 @@
         <img src="{{ post.post_file.url }}" alt="" />
         {% endif %}
         <h3>{{post.display_name}}</h3>
-        <!-- <p>{{ post.caption }}</p> -->
         <p>
             {% for word in cap %}
                 {% if word|slice:'0:1' == '#' %}
@@ -78,8 +76,6 @@
         {% endfor %}
     </div>
 
-    <div class="video">
-    </div>
 
     <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
   </body>
