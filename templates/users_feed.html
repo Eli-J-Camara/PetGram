@@ -28,7 +28,7 @@
         {% else %}
         <img src="{{ item.post_file.url }}" alt="" />
     {% endif %}
-    <h3>{{item.display_name}}</h3>
+    <h3><a href="/profile/{{item.display_name.id}}">{{item.display_name}}</a></h3>
     <p>{{item.caption}}</p>
     <p>{{item.created_at}}</p>
 </ul>

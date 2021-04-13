@@ -11,10 +11,12 @@ import re
 @login_required
 def homepage(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     current_user = CustomUser.objects.get(id=request.user.id)
     following = current_user.follows.all()
     feed = Post.objects.filter(display_name__id__in=following).order_by('-created_at').all()
-    return render(request, 'homepage.html', {'feed': feed, 'notify': notify})
+    return render(request, 'homepage.html', {'feed': feed, 'total_notify': total_notify})
 
 
 def error_404_view(request,):
@@ -27,6 +29,7 @@ def error_500_view(request):
 def post_view(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -59,13 +62,14 @@ def post_view(request):
             return redirect(reverse('post_detail', args=[new_data.id]))
     else:
         form = PostForm()
-    return render(request, 'upload_form.html', {'form': form, 'notify': notify, 'cnotify': cnotify})
+    return render(request, 'upload_form.html', {'form': form, 'total_notify':total_notify})
 
 
 @login_required
 def post_detail(request, post_id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -92,7 +96,7 @@ def post_detail(request, post_id):
     else: 
         form = CommentForm()
         comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
-        return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'notify': notify, 'cnotify': cnotify})
+        return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'total_notify': total_notify})
 
 @login_required
 def comment_delete(request, id):
@@ -103,8 +107,10 @@ def comment_delete(request, id):
 @login_required
 def users_feed(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     tag = Post.objects.all().order_by('-created_at')
-    return render(request, 'users_feed.html', {'tag':tag, 'notify': notify})
+    return render(request, 'users_feed.html', {'tag':tag, 'total_notify': total_notify})
 
 @login_required
 def hashtag_view(request, slug_id):
