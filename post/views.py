@@ -11,11 +11,9 @@ import re
 @login_required
 def homepage(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
-    current_user = CustomUser.objects.get(id=request.user.id)
-    following = current_user.follows.all()
-    feed = Post.objects.filter(display_name__id__in=following).order_by('-created_at').all()
+    all_posts = Post.objects.all().order_by('-created_at')
+    feed = [post for post in all_posts if post.display_name in request.user.follows.all() or request.user == post.display_name]
     return render(request, 'homepage.html', {'feed': feed, 'notify': notify})
-
 
 def error_404_view(request,):
     return render(request, '404.html', status=404)
