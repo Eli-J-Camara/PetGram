@@ -6,9 +6,6 @@ from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
 
-# @login_required
-# def homepage(request):
-#     return render(request, 'homepage.html')
 
 @login_required
 def edit_profile_view(request, user_id):
@@ -16,6 +13,7 @@ def edit_profile_view(request, user_id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     user = CustomUser.objects.get(id=user_id)
     form = ProfileForm()
+    
     follows = True if user in request.user.follows.all() else False
 
     if request.method == 'POST':
@@ -25,6 +23,7 @@ def edit_profile_view(request, user_id):
             user.website = data['website']
             user.bio = data['bio']
             user.display_name = data['display_name']
+            user.pet_type = data['pet_type']
             user.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'user_id':user.id}))
 
@@ -33,6 +32,7 @@ def edit_profile_view(request, user_id):
             'website': user.website,
             'bio':user.bio,
             'display_name':user.display_name,
+            'pet_type':user.pet_type,
          }
     )
 
@@ -75,6 +75,8 @@ def profile_view(request, user_id):
     follower_count = user_obj.followers.count()
     follow_list = user_obj.follows.all()
     return render(request, 'profile.html', {'user': user_obj, 'follow_list':follow_list, 'following_count': following_count, 'follower_count': follower_count, 'post': post})
+
+
 
 @login_required
 def search_bar(request):

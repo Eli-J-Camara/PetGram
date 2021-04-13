@@ -21,6 +21,7 @@ class SignUpView(View):
                 bio=data.get('bio'),
                 email=data.get('email'),
                 password=data.get('password'),
+                pet_type=data.get('pet_type'),
             )
             login(request, user)
             # request.user.follows.add(request.user)
