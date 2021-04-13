@@ -23,8 +23,8 @@ class SignUpView(View):
                 password=data.get('password'),
             )
             login(request, user)
-            request.user.follows.add(request.user)
-            request.user.save()
+            # request.user.follows.add(request.user)
+            # request.user.save()
 
             
             return HttpResponseRedirect(request.GET.get('next', reverse('homepage')))
