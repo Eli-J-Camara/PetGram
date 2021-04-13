@@ -4,7 +4,6 @@ from post.forms import PostForm, CommentForm
 from user_profile.models import CustomUser
 from notification.models import Notification, NotifyComment
 from django.contrib.auth.decorators import login_required
-from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 import re
 
@@ -91,8 +90,8 @@ def post_detail(request, post_id):
                         text = commnt,
                         reciever = user
                     )
-                print(notify)
-                return redirect(f'/post_detail/{post.id}')
+            print(notify)
+            return redirect(f'/post_detail/{post.id}')
     else: 
         form = CommentForm()
         comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
@@ -139,4 +138,39 @@ def delete_post_view(request, post_id):
     current_post = Post.objects.get(id=post_id)
     current_post.delete()
     return HttpResponseRedirect('/')
+
+# @login_required
+# def editPost_view(request, post_id):
+#     context = {}
+#     notify = Notification.objects.filter(reciever=request.user, read=False).count()
+#     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+#     total_notify = notify + cnotify
+#     edit = Post.objects.get(id=post_id)
+#     if request.method == 'POST':
+#         form = PostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             edit.post_file = data['post_file']
+#             edit.caption = data['caption']
+#             edit.save()
+#             return HttpResponseRedirect(f'/post_detail/{post_id}')
+#     form = PostForm(initial={
+#         'post_file':edit.post_file,
+#         'caption':edit.caption
+#     })
+#     context.update({'form':form, 'total_notify': total_notify})
+#     return render(request, 'post_detail.html', context)
+
+@login_required
+def editPost_view(request, post_id=id):
+    notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
+    edit = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=edit)
+        form.save()
+        return HttpResponseRedirect(f'/post_detail/{post_id}')
+    form = PostForm(instance=edit)
+    return render(request, 'post_detail.html', {'total_notify': total_notify, 'form': form})
 

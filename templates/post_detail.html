@@ -37,10 +37,11 @@
             <button><a href="/unlike/{{post.id}}/">UnLike</a></button>
             {% else %}
             <button><a href="/like/{{post.id}}/">Like</a></button>
+            <button><a href="/edit_post/{{post.id}}">Edit</a></button>
             {% endif %}
         </div>
         {% if request.user.id != None %}
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="Submit">

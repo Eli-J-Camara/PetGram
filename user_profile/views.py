@@ -16,9 +16,10 @@ def edit_profile_view(request, user_id):
     follows = True if user in request.user.follows.all() else False
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
+            user.profile_pic = data['profile_pic']
             user.website = data['website']
             user.bio = data['bio']
             user.display_name = data['display_name']

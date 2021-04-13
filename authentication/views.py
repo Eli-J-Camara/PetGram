@@ -25,9 +25,8 @@ class SignUpView(View):
             login(request, user)
             request.user.follows.add(request.user)
             request.user.save()
-
             return redirect('homepage')
-
+           
 class LoginView(View):
     template_name = 'generic_form.html'
 

@@ -12,6 +12,7 @@
     <h1>You Search For {{ search }} </h1>
     <br>
     {% for u in users %}
+    <img src="{{u.profile_pic.url}}" alt="profile_pic">
     <a href="/profile/{{u.id}}">{{u}}</a> - {{u.bio}} <br>
     {% endfor %}
 {% else %}

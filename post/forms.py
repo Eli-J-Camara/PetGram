@@ -10,3 +10,4 @@ class PostForm(forms.ModelForm):
     
 class CommentForm(forms.Form):
     comment = forms.CharField()
+
