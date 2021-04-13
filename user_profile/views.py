@@ -5,6 +5,7 @@ from notification.models import Notification, NotifyComment
 from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
+
 @login_required
 def edit_profile_view(request, user_id):
     context = {}
@@ -13,6 +14,7 @@ def edit_profile_view(request, user_id):
     total_notify = notify + cnotify
     user = CustomUser.objects.get(id=user_id)
     form = ProfileForm()
+    
     follows = True if user in request.user.follows.all() else False
 
     if request.method == 'POST':
@@ -22,6 +24,7 @@ def edit_profile_view(request, user_id):
             user.website = data['website']
             user.bio = data['bio']
             user.display_name = data['display_name']
+            user.pet_type = data['pet_type']
             user.save()
             return HttpResponseRedirect(reverse('profile', kwargs={'user_id':user.id}))
 
@@ -30,6 +33,7 @@ def edit_profile_view(request, user_id):
             'website': user.website,
             'bio':user.bio,
             'display_name':user.display_name,
+            'pet_type':user.pet_type,
          }
     )
 
@@ -47,6 +51,7 @@ def follow_view(request, user_id):
     user = request.user
     to_follow = CustomUser.objects.get(id=user_id)
     user.follows.add(to_follow)
+    to_follow.followers.add(user)
     user.save()
     print('followed')
     return HttpResponseRedirect(reverse('profile', kwargs={'user_id':to_follow.id}))
@@ -56,6 +61,7 @@ def unfollow_view(request, user_id):
     user = request.user
     to_unfollowed = CustomUser.objects.get(id=user_id)
     user.follows.remove(to_unfollowed)
+    to_follow.followers.remove(user)
     user.save()
     print('unfollow')
     return HttpResponseRedirect(reverse('profile', kwargs={'user_id': to_unfollowed.id}))   
@@ -63,9 +69,11 @@ def unfollow_view(request, user_id):
 def profile_view(request, user_id):
     user_obj = CustomUser.objects.get(id=user_id)
     post = Post.objects.filter(display_name=user_obj).order_by('-created_at')
+    following_count = user_obj.follows.count()
+    follower_count = user_obj.followers.count()
+    follow_list = user_obj.follows.all()
     cnt = Post.objects.filter(display_name=user_obj).count()
-    follow_count = user_obj.follows.count() - 1
-    return render(request, 'profile.html', {'user': user_obj, 'follow_count': follow_count, 'post': post, 'cnt': cnt})
+    return render(request, 'profile.html', {'user': user_obj, 'follow_list':follow_list, 'following_count': following_count, 'follower_count': follower_count, 'post': post, 'cnt': cnt})
 
 @login_required
 def search_bar(request):
@@ -79,4 +87,6 @@ def search_bar(request):
         return render(request, 'search_bar.html', {'search': search, 'users': users})
     else:
          return render(request, 'search_bar.html', {'total_notify': total_notify})
+
+
 

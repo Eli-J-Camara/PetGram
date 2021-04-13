@@ -21,12 +21,14 @@ class SignUpView(View):
                 bio=data.get('bio'),
                 email=data.get('email'),
                 password=data.get('password'),
+                pet_type=data.get('pet_type'),
             )
             login(request, user)
-            request.user.follows.add(request.user)
-            request.user.save()
+            # request.user.follows.add(request.user)
+            # request.user.save()
 
-            return redirect('homepage')
+            
+            return HttpResponseRedirect(request.GET.get('next', reverse('homepage')))
 
 class LoginView(View):
     template_name = 'generic_form.html'
@@ -52,7 +54,7 @@ class LoginView(View):
             else:
                 messages.error(request,'username or password is invalid')
                 print("Please signup")
-        return HttpResponseRedirect(reverse('homepage'))
+        return HttpResponseRedirect(request.GET.get('next', reverse('homepage')))
 
 class LogoutView(View):
     def get(self, request):
