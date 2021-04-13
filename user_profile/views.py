@@ -5,11 +5,6 @@ from notification.models import Notification, NotifyComment
 from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
-
-# @login_required
-# def homepage(request):
-#     return render(request, 'homepage.html')
-
 @login_required
 def edit_profile_view(request, user_id):
     context = {}
@@ -54,7 +49,6 @@ def follow_view(request, user_id):
     user.follows.add(to_follow)
     user.save()
     print('followed')
-    # return HttpResponseRedirect('/')
     return HttpResponseRedirect(reverse('profile', kwargs={'user_id':to_follow.id}))
 
 @login_required
@@ -64,11 +58,9 @@ def unfollow_view(request, user_id):
     user.follows.remove(to_unfollowed)
     user.save()
     print('unfollow')
-    # return HttpResponseRedirect('/')   
     return HttpResponseRedirect(reverse('profile', kwargs={'user_id': to_unfollowed.id}))   
 
 def profile_view(request, user_id):
-    # notify = Notification.objects.filter(reciever=request.user, read=False).count()
     user_obj = CustomUser.objects.get(id=user_id)
     post = Post.objects.filter(display_name=user_obj).order_by('-created_at')
     cnt = Post.objects.filter(display_name=user_obj).count()
@@ -86,5 +78,5 @@ def search_bar(request):
         users = CustomUser.objects.filter(username__contains=search)
         return render(request, 'search_bar.html', {'search': search, 'users': users})
     else:
-         return render(request, 'search_bar.html', {'notify': notify, 'cnotify': cnotify, 'total_notify': total_notify})
+         return render(request, 'search_bar.html', {'total_notify': total_notify})
 

@@ -12,7 +12,6 @@
     {% include 'nav.html' %}
     <h1>Post Detail</h1>
     <div>
-        {% comment %} if statement if the invidual uploads a image or pic {% endcomment %}
         {% if post.post_file.url|slice:"-4:"  == '.mp4' or post.post_file.url|slice:"-4:"  == '.mov' %}
         <video
             id="my-video"
