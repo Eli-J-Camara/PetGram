@@ -1,10 +1,8 @@
 from django.shortcuts import render
-from notification.models import Notification
+from notification.models import Notification, NotifyComment
 from post.models import Post
 from user_profile.models import CustomUser
 from django.contrib.auth.decorators import login_required
-
-# Create your views here.
 
 def error_404_view(request,):
     return render(request, '404.html', status=404)
@@ -19,4 +17,9 @@ def notification_view(request):
     for alert in notifications:
         alert.read = True
         alert.save()
-    return render(request, 'notification.html', {'notifications': notifications})
+    comment_notify = NotifyComment.objects.filter(reciever=user, read=False)
+    for notify in comment_notify:
+        notify.read = True
+        notify.save()
+    return render(request, 'notification.html', {'notifications': notifications, 'comment_notify': comment_notify})
+

@@ -2,6 +2,7 @@ from django import forms
 from django.db.models.enums import Choices
 from django.forms import ModelForm
 from user_profile.models import CustomUser
+from django.core.exceptions import ValidationError
 
 CHOICES = (
         ('Dog', 'Dog'),
@@ -21,19 +22,14 @@ class SignUpForm(forms.Form):
     email = forms.EmailField(max_length=254)
     password = forms.CharField(widget=forms.PasswordInput)
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        user_query = CustomUser.objects.filter(username=username)
+        if user_query.exists():
+            raise forms.ValidationError('Username already exists')
+        return username
 
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=40)
     password = forms.CharField(widget=forms.PasswordInput)
-
-
-
-
-# class LoginForm(forms.ModelForm):
-#     class Meta:
-#         model = CustomUser
-#         fields = ('username', 'password')
-#         widgets = {
-#             'password': forms.PasswordInput(render_value=True),
-#         }

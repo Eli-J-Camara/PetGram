@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,13 +11,20 @@
 <body>
 {% include 'nav.html' %}
 <div>
-    <img src="{{user.profile_pic}}" alt="Profile Picture">
+    {% if user.profile_pic %}
+    <img src="{{user.profile_pic.url}}" alt="Profile Picture">
+    {% else %}
+    <img src="{% static 'images/placeholder.png'%}" alt="Profile Picture">
+    {% endif %}
     <h1>{{ user.display_name }}</h1>
     <h3 style='display: inline;'>
         User Name: {{ user.username }}
         <span style="margin-left: 80px">
             <strong>Following</strong> {{ following_count }} <strong>Followers</strong> {{ follower_count }}
         </span>
+         <p>
+            <strong>Post:</strong> {{ cnt }}
+        </p>
     </h3> 
     <p><strong>Bio:</strong> {{ user.bio }}</p>
     <p>{{ user.pet_type }}</p>
@@ -55,7 +63,7 @@
         <a href="/post_detail/{{item.id}}"><img src="{{ item.post_file.url }}" alt="" /></a>
         {% endif %}
         <h3>{{item.display_name}}</h3>
-        <p>{{item.caption}}</p>
+        <p>{{item.caption}}</a>
         <p>{{item.created_at}}</p>
         <span>Likes {{item.likes}}</span>
       </div>

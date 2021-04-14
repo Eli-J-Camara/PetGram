@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,9 +12,13 @@
 {% if search %}
     <h1>You Search For {{ search }} </h1>
     <br>
-    {% comment %} can add image besides search {% endcomment %}
     {% for u in users %}
-    {{u}} - {{u.bio}} <br>
+    {% if u.profile_pic %}
+    <img src="{{u.profile_pic.url}}" alt="profile_pic">
+    {% else %}
+    <img src="{% static 'images/placeholder.png'%}" alt="Profile Picture">
+    {% endif %}
+    <a href="/profile/{{u.id}}">{{u}}</a> - {{u.bio}} <br>
     {% endfor %}
 {% else %}
     <h1>Opps no search was entered</h1>
