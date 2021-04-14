@@ -12,11 +12,9 @@ def homepage(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
     total_notify = notify + cnotify
-    current_user = CustomUser.objects.get(id=request.user.id)
-    following = current_user.follows.all()
-    feed = Post.objects.filter(display_name__id__in=following).order_by('-created_at').all()
+    all_posts = Post.objects.all().order_by('-created_at')
+    feed = [post for post in all_posts if post.display_name in request.user.follows.all() or request.user == post.display_name]
     return render(request, 'homepage.html', {'feed': feed, 'total_notify': total_notify})
-
 
 def error_404_view(request,):
     return render(request, '404.html', status=404)
@@ -70,6 +68,8 @@ def post_detail(request, post_id):
     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
     total_notify = notify + cnotify
     post = Post.objects.get(id=post_id)
+    cap = post.caption.split(' ')
+    hashtags = re.findall(r'#(\S+)', post.caption)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -80,7 +80,6 @@ def post_detail(request, post_id):
                 user = request.user,
                 post = post
             )
-
             notify = re.findall(r'@(\S+)', data['comment'])
             for item in notify:
                 user = CustomUser.objects.filter(username=item).first()
@@ -90,12 +89,20 @@ def post_detail(request, post_id):
                         text = commnt,
                         reciever = user
                     )
-            print(notify)
             return redirect(f'/post_detail/{post.id}')
     else: 
         form = CommentForm()
         comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
-        return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'total_notify': total_notify})
+        return render(request, 'post_detail.html', {
+            'post': post,
+            'comments': comments, 
+            'form': form, 
+            'total_notify': total_notify, 
+            'hashtags': hashtags, 
+            'cap': cap
+            })
+
+
 
 @login_required
 def comment_delete(request, id):
@@ -138,28 +145,6 @@ def delete_post_view(request, post_id):
     current_post = Post.objects.get(id=post_id)
     current_post.delete()
     return HttpResponseRedirect('/')
-
-# @login_required
-# def editPost_view(request, post_id):
-#     context = {}
-#     notify = Notification.objects.filter(reciever=request.user, read=False).count()
-#     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
-#     total_notify = notify + cnotify
-#     edit = Post.objects.get(id=post_id)
-#     if request.method == 'POST':
-#         form = PostForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             data = form.cleaned_data
-#             edit.post_file = data['post_file']
-#             edit.caption = data['caption']
-#             edit.save()
-#             return HttpResponseRedirect(f'/post_detail/{post_id}')
-#     form = PostForm(initial={
-#         'post_file':edit.post_file,
-#         'caption':edit.caption
-#     })
-#     context.update({'form':form, 'total_notify': total_notify})
-#     return render(request, 'post_detail.html', context)
 
 @login_required
 def editPost_view(request, post_id=id):

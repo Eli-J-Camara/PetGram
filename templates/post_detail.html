@@ -29,7 +29,16 @@
         <img src="{{ post.post_file.url }}" alt="" />
         {% endif %}
         <h3>{{post.display_name}}</h3>
-        <p>{{post.caption}}</p>
+        <p>
+            {% for word in cap %}
+                {% if word|slice:'0:1' == '#' %}
+                    <a href="/hashtag/{{ word|slice:'1:' }}/">{{ word }}</a>
+                {% else %}
+                    {{ word }}
+                {% endif %}
+            {% endfor%} 
+        </p>
+        <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
         <p>{{post.created_at}}</p>
         <span>Likes: {{post.likes}}</span>
         <div>
