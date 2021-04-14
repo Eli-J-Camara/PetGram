@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
 from post.models import Post, Comment, Hashtags
-from post.forms import PostForm, CommentForm, EditPostForm
+from post.forms import PostForm, CommentForm
 from user_profile.models import CustomUser
 from notification.models import Notification, NotifyComment
 from django.contrib.auth.decorators import login_required
-from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 import re
 
@@ -98,7 +97,7 @@ def post_detail(request, post_id):
             'post': post,
             'comments': comments, 
             'form': form, 
-            'notify': notify, 
+            'total_notify': total_notify, 
             'hashtags': hashtags, 
             'cap': cap
             })
@@ -146,14 +145,17 @@ def delete_post_view(request, post_id):
     current_post = Post.objects.get(id=post_id)
     current_post.delete()
     return HttpResponseRedirect('/')
-    
+
 @login_required
 def editPost_view(request, post_id=id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     edit = Post.objects.get(id=post_id)
     if request.method == 'POST':
-        form = EditPostForm(request.POST, instance=edit)
+        form = PostForm(request.POST, request.FILES, instance=edit)
         form.save()
         return HttpResponseRedirect(f'/post_detail/{post_id}')
-    form = EditPostForm(instance=edit)
-    return render(request, 'post_detail.html', {'notify': notify, 'form': form})
+    form = PostForm(instance=edit)
+    return render(request, 'post_detail.html', {'total_notify': total_notify, 'form': form})
+

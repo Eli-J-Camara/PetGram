@@ -24,12 +24,14 @@ class SignUpView(View):
                 pet_type=data.get('pet_type'),
             )
             login(request, user)
-            # request.user.follows.add(request.user)
-            # request.user.save()
-
-            
+            request.user.follows.add(request.user)
+            request.user.save()
             return HttpResponseRedirect(request.GET.get('next', reverse('homepage')))
-
+        else:
+            messages.error(request,'Username already taken')
+            print('Username already taken')
+            return redirect('signup')
+           
 class LoginView(View):
     template_name = 'generic_form.html'
 
