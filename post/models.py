@@ -30,6 +30,7 @@ class Comment(models.Model):
 class Hashtags(models.Model):
     post = models.ManyToManyField(Post)
     slug = models.SlugField(max_length=50)
+    slug = models.SlugField(max_length=50)
 
     def __str__(self):
         return self.slug

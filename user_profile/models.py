@@ -17,6 +17,8 @@ class CustomUser(AbstractUser):
         ('Others', 'Others'),
     )
     pet_type = models.CharField(max_length=300, choices = CHOICES)
+    followers = models.ManyToManyField('self', related_name='user_followers', symmetrical=False, blank=True, default='self')
+
 
     def __str__(self):
         return self.display_name

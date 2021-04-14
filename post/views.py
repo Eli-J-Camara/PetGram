@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
 from post.models import Post, Comment, Hashtags
-from post.forms import PostForm, CommentForm
+from post.forms import PostForm, CommentForm, EditPostForm
 from user_profile.models import CustomUser
 from notification.models import Notification
 from django.contrib.auth.decorators import login_required
@@ -64,6 +64,7 @@ def post_view(request):
 def post_detail(request, post_id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     post = Post.objects.get(id=post_id)
+    hashtags = re.findall(r'#(\S+)', post.caption)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -77,7 +78,7 @@ def post_detail(request, post_id):
             return redirect(f'/post_detail/{post.id}')
     form = CommentForm()
     comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
-    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'notify': notify})
+    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'notify': notify, 'hashtags': hashtags})
 
 @login_required
 def comment_delete(request, id):
@@ -118,4 +119,14 @@ def delete_post_view(request, post_id):
     current_post = Post.objects.get(id=post_id)
     current_post.delete()
     return HttpResponseRedirect('/')
-
+    
+@login_required
+def editPost_view(request, post_id=id):
+    notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    edit = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        form = EditPostForm(request.POST, instance=edit)
+        form.save()
+        return HttpResponseRedirect(f'/post_detail/{post_id}')
+    form = EditPostForm(instance=edit)
+    return render(request, 'post_detail.html', {'notify': notify, 'form': form})
