@@ -5,13 +5,13 @@ from user_profile.models import CustomUser
 from django.core.exceptions import ValidationError
 
 CHOICES = (
-        ('DG', 'Dog'),
-        ('CT', 'Cat'),
-        ('HS', 'Hamster'),
-        ('BS', 'Bird'),
-        ('FS', 'Fish'),
-        ('RE', 'Reptile'),
-        ('OS', 'Others'),
+        ('Dog', 'Dog'),
+        ('Cat', 'Cat'),
+        ('Hamster', 'Hamster'),
+        ('Bird', 'Bird'),
+        ('Fish', 'Fish'),
+        ('Reptile', 'Reptile'),
+        ('Others', 'Others'),
 )
 
 class SignUpForm(forms.Form):
