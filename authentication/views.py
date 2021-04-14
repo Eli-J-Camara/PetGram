@@ -26,6 +26,10 @@ class SignUpView(View):
             request.user.follows.add(request.user)
             request.user.save()
             return redirect('homepage')
+        else:
+            messages.error(request,'Username already taken')
+            print('Username already taken')
+            return redirect('signup')
            
 class LoginView(View):
     template_name = 'generic_form.html'
