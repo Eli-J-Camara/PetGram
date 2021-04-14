@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+}
+/* Navbar css */
+
+nav.navbar {
+    border-bottom: 2px solid #f4f4f4;
+}
+
+.nav-accent {
+    background-color: #0066b3;
+    height: 50px;
+}
+
+.header-text {
+    font-family: 'Gochi Hand', cursive;
+    line-height: 50px;
+}
+
+.btn-nav {
+    border: 2px solid #f58220;
+    color: #f58220;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.btn-nav:hover {
+    background-color: #f58220;
+    color: #fff;
+}
+
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(245, 130, 32, .075),0 0 8px rgb(245, 130, 32);
+  box-shadow: inset 0 1px 1px rgba(245, 130, 32,.075),0 0 8px rgb(245, 130, 32);
+}
+
+.navbar-nav a.nav-item.nav-link:hover {
+    color: #f58220;
+}
+
+.navbar-nav a.nav-item.nav-link {
+    font-family: 'Roboto', sans-serif;
+}
+
+
