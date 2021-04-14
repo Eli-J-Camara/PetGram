@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,11 @@
 <body>
 {% include 'nav.html' %}
 <div>
-    <img src="{user.profile_file" alt="Profile Picture">
+    {% if user.profile_pic %}
+    <img src="{{user.profile_pic.url}}" alt="Profile Picture">
+    {% else %}
+    <img src="{% static 'images/placeholder.png'%}" alt="Profile Picture">
+    {% endif %}
     <h1>{{ user.display_name }}</h1>
     <h3 style='display: inline;'>
         User Name: {{ user.username }}
