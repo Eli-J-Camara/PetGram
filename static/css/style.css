@@ -1,6 +1,10 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    background-color: #FAF9F6;
+}
 /* Navbar css */
 
 nav.navbar {
@@ -10,6 +14,10 @@ nav.navbar {
 .nav-accent {
     background-color: #0066b3;
     height: 50px;
+}
+
+.navbar.navbar-expand-lg.navbar-light.body-nav {
+    background-color: #fff;
 }
 
 .header-text {
@@ -139,7 +147,7 @@ li.list-group-item > a:hover {
     color: #f58220;
 }
 
-/* .fa.fa-heart {
-
-} */
+.card-title.bubble > a {
+    color: #0066b3;
+}
 

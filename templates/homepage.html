@@ -23,8 +23,8 @@
       {% for post in feed %}
         <div class="card post" style="width: 109%;">
           <div class="card-header">
-            {% if post.profile_pic %}
-              <img class="avatar" src="{{post.profile_pic.url}}" alt="avatar" />
+            {% if post.display_name.profile_pic %}
+              <img class="avatar" src="{{post.display_name.profile_pic.url}}" alt="avatar" />
             {% else %}
               <img class="avatar" src="{% static 'images/placeholder.png'%}" alt="Profile Picture"/>
             {% endif %}
@@ -55,15 +55,12 @@
         {% endif %}
 
         <div class="card-body">
-          <div>
             {% if request.user in post.user_likes.all %}
-            <button><a href="/like/{{post.id}}/"><i class="fa fa-heart fa-2x text-danger" aria-hidden="true"></i></a></button>
+            <span><a href="/unlike/{{post.id}}/"><i class="fa fa-heart fa-2x text-danger" aria-hidden="true"></i></a></span>
             {% else %}
-            <button><a href="/like/{{post.id}}/"><i class="fa fa-heart fa-2x text-secondary" aria-hidden="true"></i></a></button>
+            <span><a href="/like/{{post.id}}/"><i class="fa fa-heart fa-2x text-secondary" aria-hidden="true"></i></a>Likes {{post.likes}}</span>
             {% endif %}
-        </div>
-          Likes {{post.likes}}
-          <span class="card-title"><a href="/post_detail/{{post.id}}"><i class="fa fa-comment-o fa-2x"></i></a>Comment</span>
+          <span class="card-title bubble"><a href="/post_detail/{{post.id}}"><i class="fa fa-comment-o fa-2x"></i></a>Comment</span>
           
         </div>
 
@@ -79,11 +76,11 @@
       </div>
       <div class="second-col" style="float:right; width: 30%;">
       <div class="card side" style="width: 18rem%;">
-      <div class="card-header list">
-        Friends List or Most Recent
+      <div class="card-header list text-center">
+        Most Recent Post By:
         {% comment %} {{feed}} {% endcomment %}
       </div>
-        {% for person in feed %}
+        {% for person in most_recent %}
         <ul class="list-group list-group-flush">
           <li class="list-group-item">{{person.display_name}}</li>
         </ul>
