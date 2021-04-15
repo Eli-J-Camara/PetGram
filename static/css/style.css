@@ -109,6 +109,16 @@ li.list-group-item > a {
     text-decoration: none;
 }
 
+li.list-group-item > span > a {
+    color: rgb(133, 133, 133);
+    text-decoration: none;
+}
+
+li.list-group-item > span > a:hover {
+    color: #f58220;
+    text-decoration: none;
+}
+
 li.list-group-item > a:hover {
     color: #f58220;
     text-decoration: none;
@@ -121,4 +131,15 @@ li.list-group-item > a:hover {
     color: rgb(133, 133, 133);
 }
 
+.ellipsis > a {
+    color: #0066b3;
+}
+
+.ellipsis > a:hover {
+    color: #f58220;
+}
+
+/* .fa.fa-heart {
+
+} */
 

@@ -29,11 +29,11 @@
               <img class="avatar" src="{% static 'images/placeholder.png'%}" alt="Profile Picture"/>
             {% endif %}
             <span class="post-header"><a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a></span>
+            {% if not request.user in post.user_likes.all %}
             <div class="ellipsis">
-            <span class="iconify" data-icon="fa-ellipsis-h" data-inline="false"></span>
-            {% comment %} <i class="fa fa-ellipsis-v" aria-hidden="true"></i> {% endcomment %}
-            {% comment %} <i class="icon-ellipsis-horizontal"></i> {% endcomment %}
+            <a href="/edit_post/{{post.id}}"><span class="iconify" data-icon="fa-ellipsis-h" data-inline="false"></span></a>
             </div>
+            {% endif %}
           </div>
         
 
@@ -55,16 +55,22 @@
         {% endif %}
 
         <div class="card-body">
-          <span class="card-title"><i class="fa fa-heart fa-2x" aria-hidden="true"></i></span>
+          <div>
+            {% if request.user in post.user_likes.all %}
+            <button><a href="/like/{{post.id}}/"><i class="fa fa-heart fa-2x text-danger" aria-hidden="true"></i></a></button>
+            {% else %}
+            <button><a href="/like/{{post.id}}/"><i class="fa fa-heart fa-2x text-secondary" aria-hidden="true"></i></a></button>
+            {% endif %}
+        </div>
           Likes {{post.likes}}
-          <span class="card-title"><i class="fa fa-comment-o fa-2x"></i></span>
-          Comment
+          <span class="card-title"><a href="/post_detail/{{post.id}}"><i class="fa fa-comment-o fa-2x"></i></a>Comment</span>
+          
         </div>
 
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a>
-            <a href="/post_detail/{{post.id}}">{{post.caption}}</a>
+            <a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a> -
+            <span><a href="/post_detail/{{post.id}}">{{post.caption}}</a></span>
             <p>{{post.created_at}}</p>
           </li>
         </ul>
