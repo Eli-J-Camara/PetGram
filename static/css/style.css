@@ -38,7 +38,7 @@ nav.navbar {
 }
 
 .form-control:focus {
-  border-color: #66afe9;
+  border-color: #f58220;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(245, 130, 32, .075),0 0 8px rgb(245, 130, 32);
   box-shadow: inset 0 1px 1px rgba(245, 130, 32,.075),0 0 8px rgb(245, 130, 32);
@@ -151,3 +151,43 @@ li.list-group-item > a:hover {
     color: #0066b3;
 }
 
+/* post details */
+ .chat {
+    border: 1px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+ }
+
+ img.avatar-comments {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+ }
+
+ .delete-button {
+     float: right;
+ }
+
+ .delete-post {
+     float: right;
+ }
+
+.btn-comment {
+    border: 2px solid #f58220;
+    color: #f58220;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.btn-comment:hover {
+    background-color: #f58220;
+    color: #fff;
+}
+
+img.card-img-top {
+    max-height: 500px;
+}

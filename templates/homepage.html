@@ -10,6 +10,10 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Roboto&family=Rock+Salt&display=swap" rel="stylesheet">
@@ -29,11 +33,11 @@
               <img class="avatar" src="{% static 'images/placeholder.png'%}" alt="Profile Picture"/>
             {% endif %}
             <span class="post-header"><a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a></span>
-            {% if not request.user in post.user_likes.all %}
+            {% comment %} {% if not request.user in post.user_likes.all %} {% endcomment %}
             <div class="ellipsis">
             <a href="/edit_post/{{post.id}}"><span class="iconify" data-icon="fa-ellipsis-h" data-inline="false"></span></a>
             </div>
-            {% endif %}
+            {% comment %} {% endif %} {% endcomment %}
           </div>
         
 
@@ -56,7 +60,7 @@
 
         <div class="card-body">
             {% if request.user in post.user_likes.all %}
-            <span><a href="/unlike/{{post.id}}/"><i class="fa fa-heart fa-2x text-danger" aria-hidden="true"></i></a></span>
+            <span><a href="/unlike/{{post.id}}/"><i class="fa fa-heart fa-2x text-danger" aria-hidden="true"></i></a>Likes {{post.likes}}</span>
             {% else %}
             <span><a href="/like/{{post.id}}/"><i class="fa fa-heart fa-2x text-secondary" aria-hidden="true"></i></a>Likes {{post.likes}}</span>
             {% endif %}
