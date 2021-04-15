@@ -44,4 +44,81 @@ nav.navbar {
     font-family: 'Roboto', sans-serif;
 }
 
+.body-nav {
+    margin-bottom: 25px;
+}
+
+/* Homepage */
+.avatar {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    float:left; 
+}
+
+.post-header {
+    /* float: right; */
+    margin-left: 20px;
+    line-height: 80px;
+    font-size: 20px;
+}
+
+.post-header > a {
+    color: #000;
+    text-decoration: none;
+}
+
+.post-header > a:hover {
+    color: #f58220;
+    text-decoration: none;
+}
+
+img.card-img-top {
+    width: 100%;
+}
+
+.card.post {
+    margin-bottom: 50px;
+    font-family: 'Gochi Hand', cursive;
+    font-size: 20px;
+}
+
+.grid-container {
+    border: 1px solid #ccc;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.card-header.list {
+    background-color: #f58220;
+    color: #fff;
+}
+
+.card.side {
+    font-family: 'Roboto', sans-serif;
+}
+
+ul.list-group.list-group-flush {
+    color: #0066b3;
+}
+
+li.list-group-item > a {
+    color: #000;
+    text-decoration: none;
+}
+
+li.list-group-item > a:hover {
+    color: #f58220;
+    text-decoration: none;
+}
+
+.ellipsis {
+    float: right;
+    line-height: 85px;
+    margin-right: 10px;
+    color: rgb(133, 133, 133);
+}
+
 
