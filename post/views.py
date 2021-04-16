@@ -103,8 +103,6 @@ def post_detail(request, post_id):
             'cap': cap
             })
 
-
-
 @login_required
 def comment_delete(request, id):
     comment = Comment.objects.get(id=id)
@@ -117,7 +115,11 @@ def users_feed(request):
     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
     total_notify = notify + cnotify
     tag = Post.objects.all().order_by('-created_at')
-    return render(request, 'users_feed.html', {'tag':tag, 'total_notify': total_notify})
+    multi_of_nine = []
+    for i in range(1000):
+        if i%9 == 0:
+            multi_of_nine.append(i)
+    return render(request, 'users_feed.html', {'tag': tag, 'total_notify': total_notify, 'multi_of_nine': multi_of_nine})
 
 @login_required
 def hashtag_view(request, slug_id):

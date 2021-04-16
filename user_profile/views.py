@@ -32,7 +32,7 @@ def edit_profile_view(request, user_id):
     form = ProfileForm(
         initial={
             'website': user.website,
-            'bio':user.bio,
+            'bio': user.bio,
             'display_name':user.display_name,
             'pet_type':user.pet_type,
          }
