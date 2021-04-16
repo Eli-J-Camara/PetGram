@@ -37,7 +37,13 @@
     <a class="search-info" href="/profile/{{u.id}}">{{u}}</a> - {{u.bio}} <br>
     {% endfor %}
 {% else %}
-    <h1>Opps no search was entered</h1>
+    <div class="container">
+    <div class="card" style="width: 100%;">
+      <div class="card-header search-head text-center">
+        <h4><i class="fa fa-search" aria-hidden="true"></i> Opps no search was entered </h4>
+      </div>
+    </div>
+    </div>
 {% endif %}
 </ul>
 </div>
