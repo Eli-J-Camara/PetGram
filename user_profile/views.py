@@ -5,42 +5,19 @@ from notification.models import Notification, NotifyComment
 from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
-
 @login_required
-def edit_profile_view(request, user_id):
-    context = {}
+def edit_profile_view(request, user_id=id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
     total_notify = notify + cnotify
     user = CustomUser.objects.get(id=user_id)
-    form = ProfileForm()
-    
     follows = True if user in request.user.follows.all() else False
-
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            data = form.cleaned_data
-            user.profile_pic = data['profile_pic']
-            user.website = data['website']
-            user.bio = data['bio']
-            user.display_name = data['display_name']
-            user.pet_type = data['pet_type']
-            user.save()
-            return HttpResponseRedirect(reverse('profile', kwargs={'user_id':user.id}))
-
-    form = ProfileForm(
-        initial={
-            'profile_pic': user.profile_pic,
-            'website': user.website,
-            'bio':user.bio,
-            'display_name':user.display_name,
-            'pet_type':user.pet_type,
-         }
-    )
-
-    context = {'user': user, 'form': form, 'follows': follows, 'total_notify':total_notify}
-    return render(request, 'edit_profile.html', context) 
+        form = ProfileForm(request.POST, request.FILES, instance=user)
+        form.save()
+        return HttpResponseRedirect(f'/profile/{user_id}')
+    form = ProfileForm(instance=user)
+    return render(request, 'edit_profile.html', {'form': form, 'user': user,  'follows': follows, 'total_notify':total_notify})
 
 def error_404_view(request,):
     return render(request, '404.html', status=404)
