@@ -168,14 +168,6 @@ li.list-group-item > a:hover {
     border-radius: 50%;
  }
 
- .delete-button {
-     float: right;
- }
-
- .delete-post {
-     float: right;
- }
-
 .btn-comment {
     border: 2px solid #f58220;
     color: #f58220;
