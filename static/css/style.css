@@ -190,6 +190,34 @@ li.list-group-item > a:hover {
 
 img.card-img-top {
     max-height: 500px;
+    object-fit: cover;
+
+}
+
+/* Notification page */
+
+.card-header.notify-head {
+    font-family: 'Gochi Hand', cursive;
+    font-size: 20px;
+    background-color: #f58220;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.notify-img {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    float:left; 
+}
+
+.notify-time {
+    line-height: 80px;
+}
+
+ul.notify-link > a {
+    margin-left: 10px;
     
 }
 
