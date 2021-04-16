@@ -49,10 +49,10 @@
             preload="auto"
             width="640"
             height="464"
-            poster=""
+            preload="metadata"
             data-setup="{}"
           >
-            <source src="{{post.post_file.url}}" type="video/mp4" />
+            <source src="{{post.post_file.url}}#t=0.1" type="video/mp4" />
           </video>
         {% else %}
           <img class="card-img-top" src="{{ post.post_file.url }}" alt="" />
@@ -79,7 +79,7 @@
       {% endfor %}
       </div>
       <div class="second-col" style="float:right; width: 30%;">
-      <div class="card side" style="width: 18rem%;">
+      <div class="card side" style="width: 18rem;">
       <div class="card-header list text-center">
         Most Recent Post By:
         {% comment %} {{feed}} {% endcomment %}
@@ -92,6 +92,12 @@
       </div>
       </div>
       <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+      <script>
+        var video = Popcorn( "#my-video" );
+        video.listen( "canplayall", function() {
+          this.currentTime( 10 ).capture();
+        });
+      </script>
     </div>
   </body>
 </html>
