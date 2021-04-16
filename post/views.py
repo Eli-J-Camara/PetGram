@@ -14,7 +14,8 @@ def homepage(request):
     total_notify = notify + cnotify
     all_posts = Post.objects.all().order_by('-created_at')
     feed = [post for post in all_posts if post.display_name in request.user.follows.all() or request.user == post.display_name]
-    return render(request, 'homepage.html', {'feed': feed, 'total_notify': total_notify})
+    most_recent = Post.objects.all().order_by('-created_at')[0:10]
+    return render(request, 'homepage.html', {'feed': feed, 'total_notify': total_notify, 'most_recent': most_recent})
 
 def error_404_view(request,):
     return render(request, '404.html', status=404)

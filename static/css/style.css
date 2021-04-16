@@ -1,6 +1,10 @@
 * {
     box-sizing: border-box;
 }
+
+body {
+    background-color: #FAF9F6;
+}
 /* Navbar css */
 
 nav.navbar {
@@ -10,6 +14,10 @@ nav.navbar {
 .nav-accent {
     background-color: #0066b3;
     height: 50px;
+}
+
+.navbar.navbar-expand-lg.navbar-light.body-nav {
+    background-color: #fff;
 }
 
 .header-text {
@@ -30,7 +38,7 @@ nav.navbar {
 }
 
 .form-control:focus {
-  border-color: #66afe9;
+  border-color: #f58220;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(245, 130, 32, .075),0 0 8px rgb(245, 130, 32);
   box-shadow: inset 0 1px 1px rgba(245, 130, 32,.075),0 0 8px rgb(245, 130, 32);
@@ -44,6 +52,146 @@ nav.navbar {
     font-family: 'Roboto', sans-serif;
 }
 
+.body-nav {
+    margin-bottom: 25px;
+}
+
+/* Homepage */
+.avatar {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    float:left; 
+}
+
+.post-header {
+    /* float: right; */
+    margin-left: 20px;
+    line-height: 80px;
+    font-size: 20px;
+}
+
+.post-header > a {
+    color: #000;
+    text-decoration: none;
+}
+
+.post-header > a:hover {
+    color: #f58220;
+    text-decoration: none;
+}
+
+img.card-img-top {
+    width: 100%;
+}
+
+.card.post {
+    margin-bottom: 50px;
+    font-family: 'Gochi Hand', cursive;
+    font-size: 20px;
+}
+
+.grid-container {
+    border: 1px solid #ccc;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.card-header.list {
+    background-color: #f58220;
+    color: #fff;
+}
+
+.card.side {
+    font-family: 'Roboto', sans-serif;
+}
+
+ul.list-group.list-group-flush {
+    color: #0066b3;
+}
+
+li.list-group-item > a {
+    color: #000;
+    text-decoration: none;
+}
+
+li.list-group-item > span > a {
+    color: rgb(133, 133, 133);
+    text-decoration: none;
+}
+
+li.list-group-item > span > a:hover {
+    color: #f58220;
+    text-decoration: none;
+}
+
+li.list-group-item > a:hover {
+    color: #f58220;
+    text-decoration: none;
+}
+
+.ellipsis {
+    float: right;
+    line-height: 85px;
+    margin-right: 10px;
+    color: rgb(133, 133, 133);
+}
+
+.ellipsis > a {
+    color: #0066b3;
+}
+
+.ellipsis > a:hover {
+    color: #f58220;
+}
+
+.card-title.bubble > a {
+    color: #0066b3;
+}
+
+/* post details */
+ .chat {
+    border: 1px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+ }
+
+ img.avatar-comments {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+ }
+
+ .delete-button {
+     float: right;
+ }
+
+ .delete-post {
+     float: right;
+ }
+
+.btn-comment {
+    border: 2px solid #f58220;
+    color: #f58220;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.btn-comment:hover {
+    background-color: #f58220;
+    color: #fff;
+}
+
+img.card-img-top {
+    max-height: 500px;
+    
+}
 
 .container{
     padding: 0px;

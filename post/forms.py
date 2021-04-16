@@ -9,5 +9,5 @@ class PostForm(forms.ModelForm):
         fields = ('post_file', 'caption')
     
 class CommentForm(forms.Form):
-    comment = forms.CharField()
+    comment = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
 
