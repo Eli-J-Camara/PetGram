@@ -192,10 +192,12 @@ img.card-img-top {
     max-height: 500px;
     
 }
+
 .container{
     padding: 0px;
      /*background-color: cadetblue;*/
 } 
+
 .profile-page-pic{
     height: 200px;
     display: block; 
@@ -207,6 +209,7 @@ img.card-img-top {
     border: 5px solid #F58220;
     object-fit: cover;
 }
+
 .prophet{
     float: left; 
     border-radius: 50%; 
@@ -216,6 +219,7 @@ img.card-img-top {
     height: 210px;
     border: 3px solid #0066b3;
 }
+
 .user-info{
     position: relative;
     top: 40px;
@@ -223,65 +227,83 @@ img.card-img-top {
     height: 260px;
     border-bottom: 1px solid rgb(207, 207, 207)
 }
+
 .username-title{
     display: inline
 }
+
 .follow-unfollow{
     display: inline;
     position: relative;
     left: 40px;
     bottom: 8px
 }
+
 .profile-content{
     margin-top: 40px;
 }
+
 .user-data-count{
     margin-top: 1rem;
 }
+
 .profile-count{
     display: inline;
     padding-left: 40px;
 }
+
 .post-count{
     display:inline;
 }
+
 .display-name{
     font-weight: bold;
 }
+
 .profile-post-content{
     object-fit: cover;
     width: 300px; 
     height: 300px; 
     margin-top: 30px;
 }
+
 .profile-post-content:hover{
     box-shadow: 0 5px 15px #0066b3
 }
+
 .fa-cog{
     color: #F58220;
     font-size: 30px;
 }
+
 .fa-cog:hover{
     color: #0066b3
 }
+
 #user-website{
     color: #F58220;
 }
+
 #user-website:hover{
     color: #0066b3;
 }
+
 .col-sm{
     flex-grow: 0;
 }
+
 .follow-btn{
     background-color: #F58220;
 }
+
 .follow-btn:hover{
     background-color: #0066b3;
 }
+
 #follower-list{
     color: black
 }
+
 .follower-list:hover{
     color: black
 }
