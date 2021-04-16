@@ -1,7 +1,55 @@
+* {
+    box-sizing: border-box;
+}
+/* Navbar css */
+
+nav.navbar {
+    border-bottom: 2px solid #f4f4f4;
+}
+
+.nav-accent {
+    background-color: #0066b3;
+    height: 50px;
+}
+
+.header-text {
+    font-family: 'Gochi Hand', cursive;
+    line-height: 50px;
+}
+
+.btn-nav {
+    border: 2px solid #f58220;
+    color: #f58220;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.btn-nav:hover {
+    background-color: #f58220;
+    color: #fff;
+}
+
+.form-control:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(245, 130, 32, .075),0 0 8px rgb(245, 130, 32);
+  box-shadow: inset 0 1px 1px rgba(245, 130, 32,.075),0 0 8px rgb(245, 130, 32);
+}
+
+.navbar-nav a.nav-item.nav-link:hover {
+    color: #f58220;
+}
+
+.navbar-nav a.nav-item.nav-link {
+    font-family: 'Roboto', sans-serif;
+}
+
+
 .container{
     padding: 0px;
      /*background-color: cadetblue;*/
 } 
+
 .profile-page-pic{
     height: 200px;
     display: block; 
@@ -13,6 +61,7 @@
     border: 5px solid #F58220;
     object-fit: cover;
 }
+
 .prophet{
     float: left; 
     border-radius: 50%; 
@@ -22,6 +71,7 @@
     height: 210px;
     border: 3px solid #0066b3;
 }
+
 .user-info{
     position: relative;
     top: 40px;
@@ -29,65 +79,83 @@
     height: 260px;
     border-bottom: 1px solid rgb(207, 207, 207)
 }
+
 .username-title{
     display: inline
 }
+
 .follow-unfollow{
     display: inline;
     position: relative;
     left: 40px;
     bottom: 8px
 }
+
 .profile-content{
     margin-top: 40px;
 }
+
 .user-data-count{
     margin-top: 1rem;
 }
+
 .profile-count{
     display: inline;
     padding-left: 40px;
 }
+
 .post-count{
     display:inline;
 }
+
 .display-name{
     font-weight: bold;
 }
+
 .profile-post-content{
     object-fit: cover;
     width: 300px; 
     height: 300px; 
     margin-top: 30px;
 }
+
 .profile-post-content:hover{
     box-shadow: 0 5px 15px #0066b3
 }
+
 .fa-cog{
     color: #F58220;
     font-size: 30px;
 }
+
 .fa-cog:hover{
     color: #0066b3
 }
+
 #user-website{
     color: #F58220;
 }
+
 #user-website:hover{
     color: #0066b3;
 }
+
 .col-sm{
     flex-grow: 0;
 }
+
 .follow-btn{
     background-color: #F58220;
 }
+
 .follow-btn:hover{
     background-color: #0066b3;
 }
+
 #follower-list{
     color: black
 }
+
 .follower-list:hover{
     color: black
 }
