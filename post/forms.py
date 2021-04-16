@@ -7,6 +7,9 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('post_file', 'caption')
+        widgets = {
+            'caption': forms.Textarea(attrs={"class":"form-control"}),
+        }
     
 class CommentForm(forms.Form):
     comment = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))

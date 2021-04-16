@@ -196,7 +196,7 @@ img.card-img-top {
 
 /* Notification page */
 
-.card-header.notify-head {
+.card-header.notify-head, .card-header.upload-head {
     font-family: 'Gochi Hand', cursive;
     font-size: 20px;
     background-color: #f58220;
@@ -214,8 +214,19 @@ img.card-img-top {
 
 .notify-time {
     line-height: 80px;
+    font-family: 'Roboto', sans-serif;
 }
 
 ul.notify-link > a {
     margin-left: 10px;
+    text-decoration: none;
+    color: #0066b3;
+}
+
+ul.notify-link > a:hover {
+    color: #f58220;
+}
+
+.post-card {
+    font-family: 'Roboto', sans-serif;;
 }
