@@ -259,3 +259,34 @@ ul.notify-link > a:hover {
 .post-card {
     font-family: 'Roboto', sans-serif;;
 }
+
+.card-header.search-head {
+    font-family: 'Gochi Hand', cursive;
+    font-size: 20px;
+    background-color: #f58220;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.search-img {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    float:left; 
+}
+
+.search-link > a{
+    margin-left: 10px;
+    text-decoration: none;
+    color: #0066b3;
+}
+
+.search-link > a:hover {
+   color: #f58220;
+}
+
+.search-info {
+    line-height: 80px;
+    font-family: 'Roboto', sans-serif;
+}
