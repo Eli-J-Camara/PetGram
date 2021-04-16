@@ -219,7 +219,6 @@ img.card-img-top {
 
 ul.notify-link > a {
     margin-left: 10px;
-<<<<<<< HEAD
     text-decoration: none;
     color: #0066b3;
 }
@@ -230,7 +229,6 @@ ul.notify-link > a:hover {
 
 .post-card {
     font-family: 'Roboto', sans-serif;;
-=======
     
 }
 
@@ -347,5 +345,16 @@ ul.notify-link > a:hover {
 
 .follower-list:hover{
     color: black
->>>>>>> master
+}
+
+.feed-post-large{
+    object-fit: cover;
+    width: 630px; 
+    height: 630px; 
+    margin-top: 30px;
+}
+.feed-post-content{
+    margin-top: 40px;
+    display: flex;
+    flex-flow: column-wrap;
 }
