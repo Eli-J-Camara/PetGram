@@ -67,5 +67,9 @@ def search_bar(request):
     else:
          return render(request, 'search_bar.html', {'total_notify': total_notify})
 
-
+@login_required
+def delete_user(request, user_id):
+    current_user = CustomUser.objects.get(id=user_id)
+    current_user.delete()
+    return HttpResponseRedirect(reverse('login'))
 

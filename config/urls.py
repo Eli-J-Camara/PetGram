@@ -46,6 +46,7 @@ urlpatterns = [
     path('feed/', post.users_feed, name='user_feed'),
     path('hashtag/<slug:slug_id>/', post.hashtag_view, name='hashtag_view'),
     path('edit_post/<int:post_id>/', post.editPost_view, name='editpost'),
+    path('deactivate/<int:user_id>/', profile.delete_user, name="delete_user"),
 ]
 
 if settings.DEBUG:

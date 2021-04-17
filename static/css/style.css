@@ -168,14 +168,14 @@ li.list-group-item > a:hover {
     border-radius: 50%;
  }
 
-.btn-comment {
+.btn.btn-comment {
     border: 2px solid #f58220;
     color: #f58220;
     background-color: #fff;
     cursor: pointer;
 }
 
-.btn-comment:hover {
+.btn.btn-comment:hover {
     background-color: #f58220;
     color: #fff;
 }
@@ -187,7 +187,7 @@ li.list-group-item > a:hover {
     color: #f58220;
     background-color: #fff;
     cursor: pointer;
-    width: 49.5%;
+    width: 33%;
     margin-left: 3px;
 }
 
@@ -201,7 +201,7 @@ li.list-group-item > a:hover {
     color: #0066b3;
     background-color: #fff;
     cursor: pointer;
-    width: 49.5%;
+    width: 33%;
 }
 
 .btn.edit-profile:hover {
@@ -209,10 +209,28 @@ li.list-group-item > a:hover {
     color: #fff;
 }
 
+.btn.deactivate {
+    border: 2px solid #d10303;
+    color: #d10303;
+    background-color: #fff;
+    cursor: pointer;
+    width: 33%;
+    float: right;
+}
+
+.btn.deactivate:hover {
+    background-color: #d10303;
+    color: #fff;
+}
+
 img.card-img-top {
     max-height: 500px;
     object-fit: cover;
 
+}
+
+.profile-card {
+    margin-bottom: 30px;
 }
 
 /* Notification page */
@@ -252,6 +270,8 @@ ul.notify-link > a:hover {
     font-family: 'Roboto', sans-serif;;
 }
 
+/* Search page */
+
 .card-header.search-head {
     font-family: 'Gochi Hand', cursive;
     font-size: 20px;
@@ -282,3 +302,5 @@ ul.notify-link > a:hover {
     line-height: 80px;
     font-family: 'Roboto', sans-serif;
 }
+
+
