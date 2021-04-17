@@ -137,6 +137,7 @@ li.list-group-item > a:hover {
     line-height: 85px;
     margin-right: 10px;
     color: rgb(133, 133, 133);
+    font-family: 'Roboto', sans-serif;
 }
 
 .ellipsis > a {
