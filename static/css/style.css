@@ -229,6 +229,10 @@ img.card-img-top {
 
 }
 
+h4.delete-header{
+    font-family: 'Gochi Hand', cursive;
+}
+
 .profile-card {
     margin-bottom: 30px;
 }
