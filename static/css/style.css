@@ -234,8 +234,13 @@ h4.delete-header{
 }
 
 .profile-card {
+    font-family: 'Roboto', sans-serif;
     margin-bottom: 30px;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px rgba(94,104,121,.288);
+    border-radius: 5px;
 }
+
+
 
 /* Notification page */
 
@@ -271,7 +276,23 @@ ul.notify-link > a:hover {
 }
 
 .post-card {
-    font-family: 'Roboto', sans-serif;;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px rgba(94,104,121,.288);
+    border-radius: 5px;
+}
+
+/* the profile and post forms */
+
+.form-control.post-form {
+    box-shadow: inset -3px -3px 7px #ffffff, inset 3px 3px 5px rgba(94,104,121,.288);
+    border-radius: 5px;
+}
+
+.form-control.post-form:focus {
+    border-color: #f58220;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(245, 130, 32, .075),0 0 8px rgb(245, 130, 32);
+    box-shadow: inset 0 1px 1px rgba(245, 130, 32,.075),0 0 8px rgb(245, 130, 32);
 }
 
 /* Search page */

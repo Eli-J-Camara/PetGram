@@ -7,8 +7,8 @@ class  ProfileForm(forms.ModelForm):
         model = CustomUser
         fields = ("profile_pic", "display_name", "bio", "website", "pet_type")
         widgets = {
-            'display_name': forms.TextInput(attrs={"class":"form-control"}),
-            'bio': forms.Textarea(attrs={"class":"form-control"}),
-            'website': forms.TextInput(attrs={"class":"form-control"}),
-            'pet_type': forms.Select(attrs={"class":"form-control"}),
+            'display_name': forms.TextInput(attrs={"class":"form-control post-form"}),
+            'bio': forms.Textarea(attrs={"class":"form-control post-form"}),
+            'website': forms.TextInput(attrs={"class":"form-control post-form"}),
+            'pet_type': forms.Select(attrs={"class":"form-control post-form"}),
         }
