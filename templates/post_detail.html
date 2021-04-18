@@ -5,78 +5,146 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Roboto&family=Rock+Salt&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
     <title>Document</title>
   </head>
   <body>
     {% include 'nav.html' %}
-    <h1>Post Detail</h1>
-    <div>
-        {% if post.post_file.url|slice:"-4:"  == '.mp4' or post.post_file.url|slice:"-4:"  == '.mov' %}
-        <video
-            id="my-video"
-            class="video-js"
-            controls
-            preload="auto"
-            width="640"
-            height="264"
-            poster=""
-            data-setup="{}"
-        >
-            <source src="{{post.post_file.url}}" type="video/mp4" />
-        </video>
-        {% else %}
-        <img src="{{ post.post_file.url }}" alt="" />
-        {% endif %}
-        <h3>{{post.display_name}}</h3>
-        <p>
-            {% for word in cap %}
-                {% if word|slice:'0:1' == '#' %}
-                    <a href="/hashtag/{{ word|slice:'1:' }}/">{{ word }}</a>
+    <div class="container">
+        <div class="first-col" style="float:left; width: 60%;">
+
+            <div class="card post" style="width: 109%;">
+
+                <div class="card-header">
+                    {% if post.display_name.profile_pic %}
+                        <img class="avatar" src="{{post.display_name.profile_pic.url}}" alt="avatar" />
+                    {% else %}
+                        <img class="avatar" src="{% static 'images/placeholder.png'%}" alt="Profile Picture"/>
+                    {% endif %}
+                    <span class="post-header"><a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a></span>
+                    {% comment %} {% if not request.user in post.user_likes.all %} {% endcomment %}
+                    <div class="ellipsis">
+                        <a href="/edit_post/{{post.id}}"><span class="iconify" data-icon="fa-ellipsis-h" data-inline="false"></span></a>
+                    </div>
+                    {% comment %} {% endif %} {% endcomment %}
+                </div>
+                
+
+                {% if post.post_file.url|slice:"-4:" == '.mp4' or post.post_file.url|slice:"-4:" == '.mov' %}
+                    <video
+                        id="my-video"
+                        class="video-js card-img-top"
+                        controls
+                        preload="auto"
+                        width="640"
+                        height="464"
+                        preload="metadata"
+                        data-setup="{}"
+                        >
+                        <source src="{{post.post_file.url}}#t=0.1" type="video/mp4" />
+                    </video>
                 {% else %}
-                    {{ word }}
+                    <img class="card-img-top" src="{{ post.post_file.url }}" alt="" />
                 {% endif %}
-            {% endfor%} 
-        </p>
-        <p><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></p>
-        <p>{{post.created_at}}</p>
-        <span>Likes: {{post.likes}}</span>
-        <div>
-            {% if request.user in post.user_likes.all %}
-            <button><a href="/unlike/{{post.id}}/">UnLike</a></button>
-            {% else %}
-            <button><a href="/like/{{post.id}}/">Like</a></button>
-            <button><a href="/edit_post/{{post.id}}">Edit</a></button>
-            {% endif %}
-        </div>
-        {% if request.user.id != None %}
-            <form action="" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit">
-            </form>
-        <br>
-        <div>
-            <button><a href="/delete/{{post.id}}/">Delete</a></button>
-        </div>
-    </div>
-        {% endif %}
-        <h2>Comments:</h2>
-        {% for comment in comments %}
-            <h3 style="display: inline;">
-                {{ comment.user.username }} 
-                <span style='font-weight: normal'>{{ comment.comment }}</span>
-                {% if request.user == comment.user %}
-                    <a href='/comment_delete/{{ comment.id }}/'>
-                        <img style="width: 20px; padding-left: 30px;" src="/media/post_img/Delete.jpeg" alt="Delete Button">
-                    </a>
-                {% endif %}
-            </h3>
-            <p>{{ comment.created_at }}</p>
-        {% endfor %}
-    </div>
+            
 
+                <div class="card-body">
+                    {% if request.user in post.user_likes.all %}
+                        <span><a href="/unlike/{{post.id}}/"><i class="fa fa-heart fa-2x text-danger" aria-hidden="true"></i></a>Likes {{post.likes}}</span>
+                    {% else %}
+                        <span><a href="/like/{{post.id}}/"><i class="fa fa-heart fa-2x text-secondary" aria-hidden="true"></i></a>Likes {{post.likes}}</span>
+                    {% endif %}
+                        <span class="card-title bubble"><a href="/post_detail/{{post.id}}"><i class="fa fa-comment-o fa-2x"></i></a>Comment</span>
+                </div>
+            {% comment %} random div {% endcomment %}
+            
+            {% comment %} random div  {% endcomment %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a> -
+                        <span>
+                            {% for word in cap %}
+                                {% if word|slice:'0:1' == '#' %}
+                                    <a href="/hashtag/{{ word|slice:'1:' }}/">{{ word }}</a>
+                                {% else %}
+                                    {{ word }}
+                                {% endif %}
+                            {% endfor%} 
+                        </span>
+                        <span><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></span>
+                        <p>{{post.created_at}}</p>
+                        <span class="delete-post">
+                            <a href="/delete/{{post.id}}/"><i class="fa fa-times text-danger" aria-hidden="true"></i></a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            </div>
+            {% comment %} ----------- {% endcomment %}
 
-    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+            <div class="second-col" style="float:right; width: 30%;">
+                <div class="card side" style="width: 18rem%;">
+                    <div class="card-header list text-center">
+                        Comments
+                        {% comment %} {{feed}} {% endcomment %}
+                    </div>
+                    <div class="scroll-bar">
+                    {% comment %} <h2>Comments:</h2> {% endcomment %}
+                    {% for comment in comments %}
+                    <div class="chat">
+                    <span><img class="avatar-comments" src="{{comment.user.profile_pic.url}}" alt="Avatar" style="width:100%;"></span>
+                        <span>
+                            <strong>{{ comment.user.username }} </strong>
+                            <span>{{ comment.comment }}</span>
+                            <div class="delete-button">
+                            {% if request.user == comment.user %}
+                                <a href='/comment_delete/{{ comment.id }}/'>
+                                   <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
+                            </div>
+                        </span>
+                        <p>{{ comment.created_at }}</p>
+                    </div>
+                    {% endfor %}
+                    {% if request.user.id != None %}
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-comment btn-md btn-block" type="submit">Submit</button>
+                        </form>
+                        {% comment %} <br>
+                        <div>
+                            <button><a href="/delete/{{post.id}}/">Delete</a></button>
+                        </div> {% endcomment %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% comment %} ---------- {% endcomment %}
+            
+        </div>
+        <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
+        <script>
+            var video = Popcorn( "#my-video" );
+            video.listen( "canplayall", function() {
+                this.currentTime( 10 ).capture();
+            });
+        </script>
+    </div>
   </body>
 </html>
+
