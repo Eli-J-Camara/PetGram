@@ -65,7 +65,10 @@ def post_view(request):
 def post_detail(request, post_id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     post = Post.objects.get(id=post_id)
+    cap = post.caption.split(' ')
     hashtags = re.findall(r'#(\S+)', post.caption)
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -141,6 +144,8 @@ def delete_post_view(request, post_id):
 @login_required
 def editPost_view(request, post_id=id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     edit = Post.objects.get(id=post_id)
     if request.method == 'POST':
         form =PostForm(request.POST, instance=edit)
