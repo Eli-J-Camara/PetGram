@@ -160,5 +160,5 @@ def editPost_view(request, post_id=id):
         form.save()
         return HttpResponseRedirect(f'/post_detail/{post_id}')
     form = PostForm(instance=edit)
-    return render(request, 'post_detail.html', {'total_notify': total_notify, 'form': form})
+    return render(request, 'upload_form.html', {'total_notify': total_notify, 'form': form})
 
