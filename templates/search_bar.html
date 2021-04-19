@@ -25,7 +25,7 @@
     <div class="container">
     <div class="card" style="width: 100%;">
       <div class="card-header search-head text-center">
-        <h4><i class="fa fa-search" aria-hidden="true"></i> You Search For {{ search }} </h4>
+        <h4><i class="fa fa-search" aria-hidden="true"></i> Results For {{ search }} </h4>
       </div>
     <ul class="search-link">
     {% for u in users %}
@@ -34,7 +34,7 @@
     {% else %}
     <img class="search-img" src="{% static 'images/placeholder.png'%}" alt="Profile Picture">
     {% endif %}
-    <a class="search-info" href="/profile/{{u.id}}">{{u}}</a> - {{u.bio}} <br>
+    <a class="search-info" href="/profile/{{u.id}}">{{u.username}}</a> - {{u.bio}} <br>
     {% endfor %}
 {% else %}
     <div class="container">

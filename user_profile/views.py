@@ -13,11 +13,29 @@ def edit_profile_view(request, user_id=id):
     user = CustomUser.objects.get(id=user_id)
     follows = True if user in request.user.follows.all() else False
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=user)
-        form.save()
-        return HttpResponseRedirect(f'/profile/{user_id}')
-    form = ProfileForm(instance=user)
-    return render(request, 'edit_profile.html', {'form': form, 'user': user,  'follows': follows, 'total_notify':total_notify})
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = form.cleaned_data
+            user.profile_pic = data['profile_pic']
+            user.website = data['website']
+            user.bio = data['bio']
+            user.display_name = data['display_name']
+            user.pet_type = data['pet_type']
+            user.save()
+            return HttpResponseRedirect(reverse('profile', kwargs={'user_id':user.id}))
+
+    form = ProfileForm(
+        initial={
+            'profile_pic': user.profile_pic,
+            'website': user.website,
+            'bio': user.bio,
+            'display_name':user.display_name,
+            'pet_type':user.pet_type,
+         }
+    )
+
+    context = {'user': user, 'form': form, 'follows': follows, 'total_notify':total_notify}
+    return render(request, 'edit_profile.html', context) 
 
 def error_404_view(request,):
     return render(request, '404.html', status=404)
@@ -51,8 +69,17 @@ def profile_view(request, user_id):
     following_count = user_obj.follows.count()
     follower_count = user_obj.followers.count()
     follow_list = user_obj.follows.all()
+    follower_list = user_obj.followers.all()
     cnt = Post.objects.filter(display_name=user_obj).count()
-    return render(request, 'profile.html', {'user': user_obj, 'follow_list':follow_list, 'following_count': following_count, 'follower_count': follower_count, 'post': post, 'cnt': cnt})
+    return render(request, 'profile.html', {
+        'user': user_obj, 
+        'follow_list':follow_list, 
+        'follower_list': follower_list, 
+        'following_count': following_count, 
+        'follower_count': follower_count, 
+        'post': post, 
+        'cnt': cnt
+        })
 
 @login_required
 def search_bar(request):
