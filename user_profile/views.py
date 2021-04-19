@@ -5,18 +5,13 @@ from notification.models import Notification, NotifyComment
 from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
-
 @login_required
-def edit_profile_view(request, user_id):
-    context = {}
+def edit_profile_view(request, user_id=id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
     total_notify = notify + cnotify
     user = CustomUser.objects.get(id=user_id)
-    form = ProfileForm()
-    
     follows = True if user in request.user.follows.all() else False
-
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():

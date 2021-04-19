@@ -104,7 +104,11 @@
                     {% comment %} <h2>Comments:</h2> {% endcomment %}
                     {% for comment in comments %}
                     <div class="chat">
+                    {% if comment.user.profile_pic %}
                     <span><img class="avatar-comments" src="{{comment.user.profile_pic.url}}" alt="Avatar" style="width:100%;"></span>
+                    {% else %}
+                    <span><img class="avatar-comments" src="{% static 'images/placeholder.png'%}" alt="Avatar" style="width:100%;"></span>
+                    {% endif %}
                         <span>
                             <strong>{{ comment.user.username }} </strong>
                             <span>{{ comment.comment }}</span>
