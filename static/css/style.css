@@ -302,8 +302,9 @@ ul.notify-link > a:hover {
 .profile-post-content{
     object-fit: cover;
     width: 300px; 
-    height: 300px; 
+    height: 300px;
     margin-top: 30px;
+    margin-left: 25px;
 }
 
 .profile-post-content:hover{
@@ -327,7 +328,7 @@ ul.notify-link > a:hover {
     color: #0066b3;
 }
 
-.col-sm{
+.column-photo{
     flex-grow: 0;
 }
 
@@ -356,6 +357,7 @@ ul.notify-link > a:hover {
 .feed-post-content{
     display: flex;
     flex-flow: column-wrap;
+    justify-content: space-around;
 }
 .explore-page-header{
     text-align: center;

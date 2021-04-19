@@ -16,7 +16,7 @@
 <body>
 {% include 'nav.html' %}
 <h1 class="explore-page-header">Explore Petgram!</h1>
-<div class="mx-auto" style="width: 60rem;">
+
     <div class='container profile-container-class'>
         <div class="row feed-post-content">
             {% for item in tag %}
@@ -44,7 +44,7 @@
                     {% endif %}
                 {% else %} -->
                     {% if item.post_file.url|slice:"-4:"  == '.mp4' or item.post_file.url|slice:"-4:"  == '.mov' %}
-                        <div class="col-sm">
+                        <div class="col-sm column-photo">
                             <a href="/post_detail/{{item.id}}">
                                 <video
                                     id="my-video"
@@ -60,7 +60,7 @@
                             </a>
                         </div>
                     {% else %}
-                        <div class="col-sm">
+                        <div class="col-sm column-photo">
                             <a href="/post_detail/{{item.id}}"><img class="profile-post-content" src="{{ item.post_file.url }}" alt="" /></a>
                         </div>
                     {% endif %}
@@ -68,7 +68,7 @@
             {% endfor %}
         </div>
     </div>
-</div>
+
 <script>
     var video = Popcorn( "#my-video" );
     video.listen( "canplayall", function() {
