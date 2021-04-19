@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
 from post.models import Post, Comment, Hashtags
 from post.forms import PostForm, CommentForm
 from user_profile.models import CustomUser
-from notification.models import Notification
+from notification.models import Notification, NotifyComment
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
@@ -11,11 +11,12 @@ import re
 @login_required
 def homepage(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
-    current_user = CustomUser.objects.get(id=request.user.id)
-    following = current_user.follows.all()
-    feed = Post.objects.filter(display_name__id__in=following).order_by('-created_at').all()
-    return render(request, 'homepage.html', {'feed': feed, 'notify': notify})
-
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
+    all_posts = Post.objects.all().order_by('-created_at')
+    feed = [post for post in all_posts if post.display_name in request.user.follows.all() or request.user == post.display_name]
+    most_recent = Post.objects.all().order_by('-created_at')[0:10]
+    return render(request, 'homepage.html', {'feed': feed, 'total_notify': total_notify, 'most_recent': most_recent})
 
 def error_404_view(request,):
     return render(request, '404.html', status=404)
@@ -76,9 +77,17 @@ def post_detail(request, post_id):
                 post = post
             )
             return redirect(f'/post_detail/{post.id}')
-    form = CommentForm()
-    comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
-    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'notify': notify, 'hashtags': hashtags})
+    else: 
+        form = CommentForm()
+        comments = Comment.objects.filter(post_id=post.id).order_by('-created_at')
+        return render(request, 'post_detail.html', {
+            'post': post,
+            'comments': comments, 
+            'form': form, 
+            'total_notify': total_notify, 
+            'hashtags': hashtags, 
+            'cap': cap
+            })
 
 @login_required
 def comment_delete(request, id):
@@ -90,13 +99,22 @@ def comment_delete(request, id):
 def users_feed(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     tag = Post.objects.all().order_by('-created_at')
-    return render(request, 'users_feed.html', {'tag':tag, 'notify': notify})
+    multi_of_nine = []
+    for i in range(1000):
+        if i%9 == 0:
+            multi_of_nine.append(i)
+    return render(request, 'users_feed.html', {'tag': tag, 'total_notify': total_notify, 'multi_of_nine': multi_of_nine})
 
 @login_required
 def hashtag_view(request, slug_id):
     tag = Hashtags.objects.get(slug=slug_id)
     post = tag.post.all().order_by('-created_at')
-    return render(request, 'hashtag.html', {'tag':tag, 'post': post})
+    for item in post:
+        caption = item.caption.split(' ')
+        for word in caption:
+            if word[0] == '#':
+                hashtag = word
+    return render(request, 'hashtag.html', {'tag':tag, 'post': post, 'hashtag': hashtag})
 
 @login_required
 def like_view(request, post_id):
@@ -129,4 +147,5 @@ def editPost_view(request, post_id=id):
         form.save()
         return HttpResponseRedirect(f'/post_detail/{post_id}')
     form = PostForm(instance=edit)
-    return render(request, 'post_detail.html', {'notify': notify, 'form': form})
+    return render(request, 'upload_form.html', {'total_notify': total_notify, 'form': form})
+
