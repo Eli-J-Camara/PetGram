@@ -365,3 +365,67 @@ ul.notify-link > a:hover {
     color: #F58220;
     font-family: 'Gochi Hand', cursive;
 }
+.card-header.search-head {
+    font-family: 'Gochi Hand', cursive;
+    font-size: 20px;
+    background-color: #F58220;
+    color: #fff;
+    margin-bottom: 15px;
+}
+.search-img {
+    vertical-align: middle;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    float:left;
+}
+.search-link > a{
+    margin-left: 10px;
+    text-decoration: none;
+    color: #0066B3;
+}
+.search-link > a:hover {
+   color: #F58220;
+}
+.search-info {
+    line-height: 80px;
+    font-family: 'Roboto', sans-serif;
+}
+.btn.profile-edit {
+    border: 2px solid #F58220;
+    color: #F58220;
+    background-color: #fff;
+    cursor: pointer;
+    width: 33%;
+    margin-left: 3px;
+}
+.btn.profile-edit:hover {
+    background-color: #F58220;
+    color: #fff;
+}
+.btn.edit-profile {
+    border: 2px solid #0066B3;
+    color: #0066B3;
+    background-color: #fff;
+    cursor: pointer;
+    width: 33%;
+}
+.btn.edit-profile:hover {
+    background-color: #0066B3;
+    color: #fff;
+}
+.btn.deactivate {
+    border: 2px solid #D10303;
+    color: #D10303;
+    background-color: #fff;
+    cursor: pointer;
+    width: 33%;
+    float: right;
+}
+.btn.deactivate:hover {
+    background-color: #D10303;
+    color: #fff;
+}
+h4.delete-header{
+    font-family: 'Gochi Hand', cursive;
+}
