@@ -32,7 +32,7 @@ def edit_profile_view(request, user_id):
     form = ProfileForm(
         initial={
             'website': user.website,
-            'bio':user.bio,
+            'bio': user.bio,
             'display_name':user.display_name,
             'pet_type':user.pet_type,
          }
@@ -73,8 +73,17 @@ def profile_view(request, user_id):
     following_count = user_obj.follows.count()
     follower_count = user_obj.followers.count()
     follow_list = user_obj.follows.all()
+    follower_list = user_obj.followers.all()
     cnt = Post.objects.filter(display_name=user_obj).count()
-    return render(request, 'profile.html', {'user': user_obj, 'follow_list':follow_list, 'following_count': following_count, 'follower_count': follower_count, 'post': post, 'cnt': cnt})
+    return render(request, 'profile.html', {
+        'user': user_obj, 
+        'follow_list':follow_list, 
+        'follower_list': follower_list, 
+        'following_count': following_count, 
+        'follower_count': follower_count, 
+        'post': post, 
+        'cnt': cnt
+        })
 
 @login_required
 def search_bar(request):
