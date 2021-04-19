@@ -5,18 +5,13 @@ from notification.models import Notification, NotifyComment
 from django.shortcuts import HttpResponseRedirect,render, reverse
 from django.contrib.auth.decorators import login_required
 
-
 @login_required
-def edit_profile_view(request, user_id):
-    context = {}
+def edit_profile_view(request, user_id=id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
     cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
     total_notify = notify + cnotify
     user = CustomUser.objects.get(id=user_id)
-    form = ProfileForm()
-    
     follows = True if user in request.user.follows.all() else False
-
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -31,8 +26,9 @@ def edit_profile_view(request, user_id):
 
     form = ProfileForm(
         initial={
+            'profile_pic': user.profile_pic,
             'website': user.website,
-            'bio':user.bio,
+            'bio': user.bio,
             'display_name':user.display_name,
             'pet_type':user.pet_type,
          }
@@ -62,7 +58,7 @@ def unfollow_view(request, user_id):
     user = request.user
     to_unfollowed = CustomUser.objects.get(id=user_id)
     user.follows.remove(to_unfollowed)
-    to_follow.followers.remove(user)
+    to_unfollowed.followers.remove(user)
     user.save()
     print('unfollow')
     return HttpResponseRedirect(reverse('profile', kwargs={'user_id': to_unfollowed.id}))   
@@ -73,8 +69,17 @@ def profile_view(request, user_id):
     following_count = user_obj.follows.count()
     follower_count = user_obj.followers.count()
     follow_list = user_obj.follows.all()
+    follower_list = user_obj.followers.all()
     cnt = Post.objects.filter(display_name=user_obj).count()
-    return render(request, 'profile.html', {'user': user_obj, 'follow_list':follow_list, 'following_count': following_count, 'follower_count': follower_count, 'post': post, 'cnt': cnt})
+    return render(request, 'profile.html', {
+        'user': user_obj, 
+        'follow_list':follow_list, 
+        'follower_list': follower_list, 
+        'following_count': following_count, 
+        'follower_count': follower_count, 
+        'post': post, 
+        'cnt': cnt
+        })
 
 @login_required
 def search_bar(request):
@@ -89,5 +94,9 @@ def search_bar(request):
     else:
          return render(request, 'search_bar.html', {'total_notify': total_notify})
 
-
+@login_required
+def delete_user(request, user_id):
+    current_user = CustomUser.objects.get(id=user_id)
+    current_user.delete()
+    return HttpResponseRedirect(reverse('login'))
 
