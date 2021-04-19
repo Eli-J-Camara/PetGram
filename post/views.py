@@ -4,6 +4,7 @@ from post.forms import PostForm, CommentForm
 from user_profile.models import CustomUser
 from notification.models import Notification, NotifyComment
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 import re
 
@@ -23,11 +24,9 @@ def error_404_view(request,):
 def error_500_view(request):
     return render(request, '500.html', status=500)
 
-@login_required 
+@login_required
 def post_view(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
-    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
-    total_notify = notify + cnotify
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -60,36 +59,26 @@ def post_view(request):
             return redirect(reverse('post_detail', args=[new_data.id]))
     else:
         form = PostForm()
-    return render(request, 'upload_form.html', {'form': form, 'total_notify':total_notify})
-
+    return render(request, 'upload_form.html', {'form': form, 'notify': notify})
 
 @login_required
 def post_detail(request, post_id):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
-    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
-    total_notify = notify + cnotify
     post = Post.objects.get(id=post_id)
     cap = post.caption.split(' ')
     hashtags = re.findall(r'#(\S+)', post.caption)
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             print(request.user.id)
             data=form.cleaned_data
-            commnt = Comment.objects.create(
+            comment = Comment.objects.create(
                 comment = data['comment'],
                 user = request.user,
                 post = post
             )
-            notify = re.findall(r'@(\S+)', data['comment'])
-            for item in notify:
-                user = CustomUser.objects.filter(username=item).first()
-                if user:
-                    NotifyComment.objects.create(
-                        read = False,
-                        text = commnt,
-                        reciever = user
-                    )
             return redirect(f'/post_detail/{post.id}')
     else: 
         form = CommentForm()
@@ -112,8 +101,6 @@ def comment_delete(request, id):
 @login_required
 def users_feed(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
-    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
-    total_notify = notify + cnotify
     tag = Post.objects.all().order_by('-created_at')
     multi_of_nine = []
     for i in range(1000):
@@ -125,7 +112,12 @@ def users_feed(request):
 def hashtag_view(request, slug_id):
     tag = Hashtags.objects.get(slug=slug_id)
     post = tag.post.all().order_by('-created_at')
-    return render(request, 'hashtag.html', {'tag':tag, 'post': post})
+    for item in post:
+        caption = item.caption.split(' ')
+        for word in caption:
+            if word[0] == '#':
+                hashtag = word
+    return render(request, 'hashtag.html', {'tag':tag, 'post': post, 'hashtag': hashtag})
 
 @login_required
 def like_view(request, post_id):
@@ -156,7 +148,7 @@ def editPost_view(request, post_id=id):
     total_notify = notify + cnotify
     edit = Post.objects.get(id=post_id)
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES, instance=edit)
+        form =PostForm(request.POST, instance=edit)
         form.save()
         return HttpResponseRedirect(f'/post_detail/{post_id}')
     form = PostForm(instance=edit)

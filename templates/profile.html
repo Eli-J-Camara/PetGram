@@ -13,7 +13,7 @@
 </head>
 <body>
 {% include 'nav.html' %}
-{% comment %} <div class="mx-auto" style="width: 60rem;"> {% endcomment %}
+<div class="mx-auto">
     <div class='container profile-container-class'>
         {% if user.profile_pic %}
             <div class="prophet">
@@ -116,7 +116,7 @@
         <div class="row profile-content">
             {% for item in post %}
                 {% if item.post_file.url|slice:"-4:"  == '.mp4' or item.post_file.url|slice:"-4:"  == '.mov' %}
-                    <div class="col-sm">
+                    <div class="col-sm photo-column">
                         <a href="/post_detail/{{item.id}}">
                             <video
                                 id="my-video"
