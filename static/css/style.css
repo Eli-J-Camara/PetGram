@@ -67,7 +67,8 @@ nav.navbar {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    float:left; 
+    float:left;
+    border: 2px solid #f58220;
 }
 
 .post-header {
@@ -172,6 +173,7 @@ li.list-group-item > a:hover {
     width: 100%;
     margin-right: 20px;
     border-radius: 50%;
+    border: 2px solid #0066b3;
  }
 
 .btn.btn-comment {
@@ -464,4 +466,34 @@ ul.notify-link > a:hover {
     font-family: 'Roboto', sans-serif;
 }
 
+/* followers and following list */
+img.following-avatar{
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
 
+.following-user{
+    line-height: 80px;
+}
+
+.row.profile-content {
+    justify-content: space-around;
+}
+
+.btn.btn-following {
+    border: 2px solid #f58220;
+    color: #f58220;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.btn.btn-following:hover {
+    background-color: #f58220;
+    color: #fff;
+}
+
+.following-title {
+    font-family: 'Gochi Hand', cursive;
+}
