@@ -142,6 +142,7 @@ li.list-group-item > a:hover {
     line-height: 85px;
     margin-right: 10px;
     color: rgb(133, 133, 133);
+    font-family: 'Roboto', sans-serif;
 }
 
 .ellipsis > a {
@@ -173,14 +174,14 @@ li.list-group-item > a:hover {
     border-radius: 50%;
  }
 
-.btn-comment {
+.btn.btn-comment {
     border: 2px solid #f58220;
     color: #f58220;
     background-color: #fff;
     cursor: pointer;
 }
 
-.btn-comment:hover {
+.btn.btn-comment:hover {
     background-color: #f58220;
     color: #fff;
 }
@@ -192,7 +193,7 @@ li.list-group-item > a:hover {
     color: #f58220;
     background-color: #fff;
     cursor: pointer;
-    width: 49.5%;
+    width: 33%;
     margin-left: 3px;
 }
 
@@ -206,11 +207,25 @@ li.list-group-item > a:hover {
     color: #0066b3;
     background-color: #fff;
     cursor: pointer;
-    width: 49.5%;
+    width: 33%;
 }
 
 .btn.edit-profile:hover {
     background-color: #0066b3;
+    color: #fff;
+}
+
+.btn.deactivate {
+    border: 2px solid #d10303;
+    color: #d10303;
+    background-color: #fff;
+    cursor: pointer;
+    width: 33%;
+    float: right;
+}
+
+.btn.deactivate:hover {
+    background-color: #d10303;
     color: #fff;
 }
 
@@ -219,6 +234,19 @@ img.card-img-top {
     object-fit: cover;
 
 }
+
+h4.delete-header{
+    font-family: 'Gochi Hand', cursive;
+}
+
+.profile-card {
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 30px;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px rgba(94,104,121,.288);
+    border-radius: 5px;
+}
+
+
 
 /* Notification page */
 
@@ -254,6 +282,23 @@ ul.notify-link > a:hover {
 }
 
 .post-card {
+    font-family: 'Roboto', sans-serif;
+    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px rgba(94,104,121,.288);
+    border-radius: 5px;
+}
+
+/* the profile and post forms */
+
+.form-control.post-form {
+    box-shadow: inset -3px -3px 7px #ffffff, inset 3px 3px 5px rgba(94,104,121,.288);
+    border-radius: 5px;
+}
+
+.form-control.post-form:focus {
+    border-color: #f58220;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(245, 130, 32, .075),0 0 8px rgb(245, 130, 32);
+    box-shadow: inset 0 1px 1px rgba(245, 130, 32,.075),0 0 8px rgb(245, 130, 32);
     font-family: 'Roboto', sans-serif;;
     
 }
@@ -385,6 +430,8 @@ ul.notify-link > a:hover {
     flex-flow: column-wrap;
 }
 
+/* Search page */
+
 .card-header.search-head {
     font-family: 'Gochi Hand', cursive;
     font-size: 20px;
@@ -416,3 +463,5 @@ ul.notify-link > a:hover {
     line-height: 80px;
     font-family: 'Roboto', sans-serif;
 }
+
+
