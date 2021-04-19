@@ -34,7 +34,7 @@
                         <img class="avatar" src="{% static 'images/placeholder.png'%}" alt="Profile Picture"/>
                     {% endif %}
                     <span class="post-header"><a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a></span>
-                    {% comment %} {% if not request.user in post.user_likes.all %} {% endcomment %}
+                    {% if post.display_name.username ==  request.user.username %}
                     <div class="dropdown ellipsis">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="iconify" data-icon="fa-ellipsis-h" data-inline="false"></span>
@@ -44,7 +44,7 @@
                             <a href="/delete/{{post.id}}/"><button class="dropdown-item" type="button"><i class="fa fa-times text-danger" aria-hidden="true"></i> Delete</button></a>
                         </div>
                     </div>
-                    {% comment %} {% endif %} {% endcomment %}
+                    {% endif %}
                 </div>
                 
 
@@ -74,9 +74,7 @@
                     {% endif %}
                         <span class="card-title bubble"><a href="/post_detail/{{post.id}}"><i class="fa fa-comment-o fa-2x"></i></a>Comment</span>
                 </div>
-            {% comment %} random div {% endcomment %}
             
-            {% comment %} random div  {% endcomment %}
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a> -
