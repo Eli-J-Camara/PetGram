@@ -1,8 +1,3 @@
-/* 404 page styling image */
-
-/* h1 {
-    color: aqua;
-} */
 * {
     box-sizing: border-box;
 }
@@ -142,7 +137,6 @@ li.list-group-item > a:hover {
     line-height: 85px;
     margin-right: 10px;
     color: rgb(133, 133, 133);
-    font-family: 'Roboto', sans-serif;
 }
 
 .ellipsis > a {
@@ -174,58 +168,23 @@ li.list-group-item > a:hover {
     border-radius: 50%;
  }
 
-.btn.btn-comment {
+ .delete-button {
+     float: right;
+ }
+
+ .delete-post {
+     float: right;
+ }
+
+.btn-comment {
     border: 2px solid #f58220;
     color: #f58220;
     background-color: #fff;
     cursor: pointer;
 }
 
-.btn.btn-comment:hover {
+.btn-comment:hover {
     background-color: #f58220;
-    color: #fff;
-}
-
-/* edit profile */
-
-.btn.profile-edit {
-    border: 2px solid #f58220;
-    color: #f58220;
-    background-color: #fff;
-    cursor: pointer;
-    width: 33%;
-    margin-left: 3px;
-}
-
-.btn.profile-edit:hover {
-    background-color: #f58220;
-    color: #fff;
-}
-
-.btn.edit-profile {
-    border: 2px solid #0066b3;
-    color: #0066b3;
-    background-color: #fff;
-    cursor: pointer;
-    width: 33%;
-}
-
-.btn.edit-profile:hover {
-    background-color: #0066b3;
-    color: #fff;
-}
-
-.btn.deactivate {
-    border: 2px solid #d10303;
-    color: #d10303;
-    background-color: #fff;
-    cursor: pointer;
-    width: 33%;
-    float: right;
-}
-
-.btn.deactivate:hover {
-    background-color: #d10303;
     color: #fff;
 }
 
@@ -234,19 +193,6 @@ img.card-img-top {
     object-fit: cover;
 
 }
-
-h4.delete-header{
-    font-family: 'Gochi Hand', cursive;
-}
-
-.profile-card {
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: 30px;
-    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px rgba(94,104,121,.288);
-    border-radius: 5px;
-}
-
-
 
 /* Notification page */
 
@@ -282,23 +228,6 @@ ul.notify-link > a:hover {
 }
 
 .post-card {
-    font-family: 'Roboto', sans-serif;
-    box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px rgba(94,104,121,.288);
-    border-radius: 5px;
-}
-
-/* the profile and post forms */
-
-.form-control.post-form {
-    box-shadow: inset -3px -3px 7px #ffffff, inset 3px 3px 5px rgba(94,104,121,.288);
-    border-radius: 5px;
-}
-
-.form-control.post-form:focus {
-    border-color: #f58220;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(245, 130, 32, .075),0 0 8px rgb(245, 130, 32);
-    box-shadow: inset 0 1px 1px rgba(245, 130, 32,.075),0 0 8px rgb(245, 130, 32);
     font-family: 'Roboto', sans-serif;;
     
 }
@@ -373,8 +302,9 @@ ul.notify-link > a:hover {
 .profile-post-content{
     object-fit: cover;
     width: 300px; 
-    height: 300px; 
+    height: 300px;
     margin-top: 30px;
+    margin-left: 25px;
 }
 
 .profile-post-content:hover{
@@ -398,7 +328,7 @@ ul.notify-link > a:hover {
     color: #0066b3;
 }
 
-.col-sm{
+.column-photo{
     flex-grow: 0;
 }
 
@@ -425,43 +355,13 @@ ul.notify-link > a:hover {
     margin-top: 30px;
 }
 .feed-post-content{
-    margin-top: 40px;
     display: flex;
     flex-flow: column-wrap;
+    justify-content: space-around;
 }
-
-/* Search page */
-
-.card-header.search-head {
+.explore-page-header{
+    text-align: center;
+    margin: auto;
+    color: #F58220;
     font-family: 'Gochi Hand', cursive;
-    font-size: 20px;
-    background-color: #f58220;
-    color: #fff;
-    margin-bottom: 15px;
 }
-
-.search-img {
-    vertical-align: middle;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    float:left;
-
-}
-
-.search-link > a{
-    margin-left: 10px;
-    text-decoration: none;
-    color: #0066b3;
-}
-
-.search-link > a:hover {
-   color: #f58220;
-}
-
-.search-info {
-    line-height: 80px;
-    font-family: 'Roboto', sans-serif;
-}
-
-
