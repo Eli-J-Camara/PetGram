@@ -378,6 +378,7 @@ ul.notify-link > a:hover {
     line-height: 80px;
     font-family: 'Roboto', sans-serif;
 }
+
 /* followers and following list */
 img.following-avatar{
     max-width: 60px;
@@ -385,18 +386,18 @@ img.following-avatar{
     margin-right: 20px;
     border-radius: 50%;
 }
+
 .following-user{
     line-height: 80px;
 }
-.row.profile-content {
-    justify-content: space-around;
-}
+
 .btn.btn-following {
     border: 2px solid #f58220;
     color: #f58220;
     background-color: #fff;
     cursor: pointer;
 }
+
 .btn.btn-following:hover {
     background-color: #f58220;
     color: #fff;
