@@ -125,7 +125,12 @@ def users_feed(request):
 def hashtag_view(request, slug_id):
     tag = Hashtags.objects.get(slug=slug_id)
     post = tag.post.all().order_by('-created_at')
-    return render(request, 'hashtag.html', {'tag':tag, 'post': post})
+    for item in post:
+        caption = item.caption.split(' ')
+        for word in caption:
+            if word[0] == '#':
+                hashtag = word
+    return render(request, 'hashtag.html', {'tag':tag, 'post': post, 'hashtag': hashtag})
 
 @login_required
 def like_view(request, post_id):
