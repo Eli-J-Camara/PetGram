@@ -35,8 +35,14 @@
                     {% endif %}
                     <span class="post-header"><a href="/profile/{{post.display_name.id}}">{{post.display_name}}</a></span>
                     {% comment %} {% if not request.user in post.user_likes.all %} {% endcomment %}
-                    <div class="ellipsis">
-                        <a href="/edit_post/{{post.id}}"><span class="iconify" data-icon="fa-ellipsis-h" data-inline="false"></span></a>
+                    <div class="dropdown ellipsis">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="iconify" data-icon="fa-ellipsis-h" data-inline="false"></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <a href="/edit_post/{{post.id}}"><button class="dropdown-item" type="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                            <a href="/delete/{{post.id}}/"><button class="dropdown-item" type="button"><i class="fa fa-times text-danger" aria-hidden="true"></i> Delete</button></a>
+                        </div>
                     </div>
                     {% comment %} {% endif %} {% endcomment %}
                 </div>
@@ -85,9 +91,6 @@
                         </span>
                         <span><a href="/hashtag/{{post.id}}/">{{post.tags}}</a></span>
                         <p>{{post.created_at}}</p>
-                        <span class="delete-post">
-                            <a href="/delete/{{post.id}}/"><i class="fa fa-times text-danger" aria-hidden="true"></i></a>
-                        </span>
                     </li>
                 </ul>
             </div>
