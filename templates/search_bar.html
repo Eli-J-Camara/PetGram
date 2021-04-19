@@ -18,7 +18,7 @@
     {% else %}
     <img src="{% static 'images/placeholder.png'%}" alt="Profile Picture">
     {% endif %}
-    <a href="/profile/{{u.id}}">{{u}}</a> - {{u.bio}} <br>
+    <a href="/profile/{{u.id}}">{{u.username}}</a> - {{u.bio}} <br>
     {% endfor %}
 {% else %}
     <h1>Opps no search was entered</h1>
