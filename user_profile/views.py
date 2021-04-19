@@ -31,6 +31,7 @@ def edit_profile_view(request, user_id):
 
     form = ProfileForm(
         initial={
+            'profile_pic': user.profile_pic,
             'website': user.website,
             'bio': user.bio,
             'display_name':user.display_name,
