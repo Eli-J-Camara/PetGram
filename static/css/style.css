@@ -354,7 +354,12 @@ ul.notify-link > a:hover {
     margin-top: 30px;
 }
 .feed-post-content{
-    margin-top: 40px;
     display: flex;
     flex-flow: column-wrap;
+}
+.explore-page-header{
+    text-align: center;
+    margin: auto;
+    color: #F58220;
+    font-family: 'Gochi Hand', cursive;
 }
