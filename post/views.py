@@ -101,6 +101,8 @@ def comment_delete(request, id):
 @login_required
 def users_feed(request):
     notify = Notification.objects.filter(reciever=request.user, read=False).count()
+    cnotify = NotifyComment.objects.filter(reciever=request.user, read=False).count()
+    total_notify = notify + cnotify
     tag = Post.objects.all().order_by('-created_at')
     multi_of_nine = []
     for i in range(1000):
