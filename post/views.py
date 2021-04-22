@@ -35,7 +35,6 @@ def post_view(request):
                 caption = form.cleaned_data['caption'],
                 post_file = form.cleaned_data['post_file'],
             )
-
             hashtags = re.findall(r'#(\S+)', form.cleaned_data['caption'])
             for item in hashtags:
                 tag = slugify(item[0:50])
@@ -45,7 +44,6 @@ def post_view(request):
                 new_tag.post.add(new_data)
                 new_tag.save()
                 print(new_tag)
-        
             notifications = re.findall(r'@(\S+)', form.cleaned_data['caption'])
             for string in notifications:
                 user = CustomUser.objects.filter(username=string).first()

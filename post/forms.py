@@ -13,4 +13,3 @@ class PostForm(forms.ModelForm):
     
 class CommentForm(forms.Form):
     comment = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
-

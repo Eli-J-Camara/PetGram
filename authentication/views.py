@@ -4,7 +4,7 @@ from django.views.generic import View
 from user_profile.models import CustomUser
 from authentication.forms import SignUpForm, LoginForm
 from django.contrib import messages
-
+ 
 class SignUpView(View):
     def get(self, request):
         template_name = 'generic_form.html'
